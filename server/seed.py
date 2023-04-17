@@ -1,5 +1,5 @@
-from app import app
-from config import db
+
+from config import db, app
 from models import MenuItem, OrderItem, Receipt, User
 
 with app.app_context():
