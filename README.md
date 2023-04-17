@@ -1,7 +1,7 @@
 # phase-4-project-cafe-website
 
 ## Table relationships
-![image](https://user-images.githubusercontent.com/121903203/232548699-f0881a5c-e983-4c45-bd4a-a673d5269137.png)
+![image](https://user-images.githubusercontent.com/120995506/232566041-47ab0e43-1899-4745-b40b-637f983010af.png)
 
 ## Wireframes
 https://www.figma.com/file/pR20mpLi5YAfLa1hF7bfgH/Phase-4-Project?node-id=675-3807&t=3q4QdFiUj0SAOTNX-0
