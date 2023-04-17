@@ -15,6 +15,7 @@ psycopg2-binary = "*"
 flask-bcrypt = "*"
 db = "*"
 flask-session = "*"
+gunicorn = "*"
 
 [dev-packages]
 

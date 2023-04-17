@@ -53,7 +53,7 @@ class OrderItem(db.Model, SerializerMixin):
     # receipt = db.relationship('Receipt', backref='orderitem')
 
     def ___repr__(self):
-        return f'<OrderItem {self.id} * Menu_item: {self.menu_item}, Receipt: {self.receipt}>'
+        return f'<OrderItem {self.id} >'
 
 class Receipt(db.Model, SerializerMixin):
     __tablename__ = 'receipts'
