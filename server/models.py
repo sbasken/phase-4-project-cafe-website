@@ -8,16 +8,12 @@ from config import db, bcrypt
 class MenuItem(db.Model, SerializerMixin):
     __tablename__ = 'menuitems'
 
-    __table_args__ = (
-        db.CheckConstraint('len(description) <= 100'),
-    )
-
     serialize_rules = ('-order_items', '-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Float)
     name = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, db.CheckConstraint('len(description) <= 100'))
+    description = db.Column(db.String)
     veg = db.Column(db.Boolean)
     category = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -30,9 +26,16 @@ class MenuItem(db.Model, SerializerMixin):
         if not category:
             raise ValueError('Category cannot be empty')
         return category
+    
+    @validates('description')
+    def validate_description(self, key, description):
+        if len(description) > 100:
+            raise ValueError('Description must be less than 100 characters')
+        return description
 
     def ___repr__(self):
         return f'<MenuItem {self.id} * Name: {self.name}, Price: {self.price}>'
+
 
 class OrderItem(db.Model, SerializerMixin):
     __tablename__ = 'orderitems'
@@ -40,20 +43,20 @@ class OrderItem(db.Model, SerializerMixin):
     serialize_rules = ('-created_at', '-updated_at', '-menu_item', '-receipt', '-menuitem_id', '-receipt_id')
 
     id = db.Column(db.Integer, primary_key=True)
-    menuitem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    reciept_id = db.Column(db.Integer, db.ForeignKey('reciepts.id'))
+    menuitem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id'), nullable=False)
+    receipt_id = db.Column(db.Integer, db.ForeignKey('receipts.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    menu_item = db.relationship('MenuItem', backref='orderitem')
-    receipt = db.relationship('Receipts', backref='receipt')
+    # menu_item = db.relationship('MenuItem', backref='orderitem')
+    # receipt = db.relationship('Receipt', backref='orderitem')
 
     def ___repr__(self):
         return f'<OrderItem {self.id} * Menu_item: {self.menu_item}, Receipt: {self.receipt}>'
 
-class Reciept(db.Model, SerializerMixin):
-    __tablename__ = 'reciepts'
+class Receipt(db.Model, SerializerMixin):
+    __tablename__ = 'receipts'
 
     serialize_rules = ('-order_items', '-user', '-created_at', '-updated_at', '-orderitem_id', '-user_id')
 
@@ -65,8 +68,8 @@ class Reciept(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    order_items = db.relationship('OrderItem', backref='reciept')
-    user = db.relationship('User', backref='reciept')
+    order_items = db.relationship('OrderItem', backref='receipt')
+    user = db.relationship('User', backref='receipt')
 
     def ___repr__(self):
         return f'<Receipt {self.id} * User: {self.user}, Order_items: {self.order_items}, Total: {self.total}>'
@@ -83,8 +86,8 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    receipts = db.relationship('Reciept', backref='user')
-    order_items = association_proxy('reciepts', 'order_item')
+    receipts = db.relationship('Receipt', backref='user')
+    order_items = association_proxy('receipts', 'order_item')
 
     @hybrid_property
     def password_hash(self):

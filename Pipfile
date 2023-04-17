@@ -13,6 +13,8 @@ flask-cors = "*"
 psycopg2-binary = "*"
 "sqlalchemy.ext" = "*"
 flask-bcrypt = "*"
+db = "*"
+flask-session = "*"
 
 [dev-packages]
 

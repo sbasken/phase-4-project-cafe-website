@@ -4,8 +4,8 @@ from flask import make_response, request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
-from config import app, db, api
-from models import User, Recipe
+from config import app, api, db
+from models import User
 
 class home(Resource):
     
