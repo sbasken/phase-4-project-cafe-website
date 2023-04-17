@@ -61,7 +61,6 @@ class Receipt(db.Model, SerializerMixin):
     serialize_rules = ('-order_items', '-user', '-created_at', '-updated_at', '-orderitem_id', '-user_id')
 
     id = db.Column(db.Integer, primary_key=True)
-    orderitem_id = db.Column(db.Integer, db.ForeignKey('orderitems.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     total = db.Column(db.Float)
     completed = db.Column(db.Boolean)
