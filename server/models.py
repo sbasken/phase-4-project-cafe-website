@@ -45,12 +45,10 @@ class OrderItem(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     menuitem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id'), nullable=False)
-    receipt_id = db.Column(db.Integer, db.ForeignKey('receipts.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    # menu_item = db.relationship('MenuItem', backref='orderitem')
-    # receipt = db.relationship('Receipt', backref='orderitem')
+    receipt = db.relationship('Receipt', backref='orderitem')
 
     def ___repr__(self):
         return f'<OrderItem {self.id} >'
@@ -62,13 +60,14 @@ class Receipt(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    orderitem_id = db.Column(db.Integer, db.ForeignKey('orderitems.id'))
     total = db.Column(db.Float)
     completed = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    order_items = db.relationship('OrderItem', backref='receipt')
-    user = db.relationship('User', backref='receipt')
+    # order_items = db.relationship('OrderItem', backref='receipt')
+    # user = db.relationship('User', backref='receipt')
 
     def ___repr__(self):
         return f'<Receipt {self.id} * User: {self.user}, Order_items: {self.order_items}, Total: {self.total}>'
