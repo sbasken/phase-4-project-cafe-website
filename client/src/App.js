@@ -1,7 +1,8 @@
 import Home from './components/home';
 import Navbar from './components/Navbar';
 import Menu from './components/Menu';
-import Order from './components/Order';
+import Order from './components/Orders';
+import About from './components/About';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 
@@ -13,9 +14,10 @@ function App() {
       </div>
       <div className="row">
         <Routes>
-          <Route exact path="/home" element={<Home />} />
-          <Route exact path="/home" element={<Menu />} />
-          <Route exact path="/home" element={<Order />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/orders" element={<Order />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
     </div>
