@@ -58,7 +58,7 @@ class OrderItem(db.Model, SerializerMixin):
 class Receipt(db.Model, SerializerMixin):
     __tablename__ = 'receipts'
 
-    serialize_rules = ('-order_items', '-customer', '-created_at', '-updated_at', '-orderitem_id', '-customer_id')
+    serialize_rules = ('-order_items', '-customers', '-created_at', '-updated_at', '-user_id')
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -81,7 +81,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
-    customer = db.Column(db.Boolean)
+    customer = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 

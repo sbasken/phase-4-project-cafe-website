@@ -34,9 +34,12 @@ with app.app_context():
 
     print("Seeding user data...")
     # create a user
-    user = User(username='john_doe', customer=True)
-    user.password_hash = 'password'  # set password
+    user1 = User(username='john_doe', customer=True)
+    user1.password_hash = 'password'  # set password
     
+    user2 = User(username='jane_doe', customer=False)
+    user2.password_hash = 'password1'  # set password
+
     print("Commiting orderitem data...")
     # add order items to database
     db.session.add_all([order_item1, order_item2, order_item3])
@@ -45,7 +48,7 @@ with app.app_context():
 
     print("Commiting user data...")
     # add user to database
-    db.session.add(user)
+    db.session.add_all([user1, user2])
     db.session.commit()
 
     print("Commiting receipt data...")
