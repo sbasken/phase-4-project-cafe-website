@@ -16,6 +16,7 @@ flask-bcrypt = "*"
 db = "*"
 flask-session = "*"
 gunicorn = "*"
+requests = "*"
 
 [dev-packages]
 
