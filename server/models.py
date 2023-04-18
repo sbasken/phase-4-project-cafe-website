@@ -58,7 +58,7 @@ class OrderItem(db.Model, SerializerMixin):
 class Receipt(db.Model, SerializerMixin):
     __tablename__ = 'receipts'
 
-    serialize_rules = ('-order_items', '-user', '-created_at', '-updated_at', '-orderitem_id', '-user_id')
+    serialize_rules = ('-order_items', '-customer', '-created_at', '-updated_at', '-orderitem_id', '-customer_id')
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -68,9 +68,9 @@ class Receipt(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     order_items = db.relationship('OrderItem', backref='receipt')
-    user = db.relationship('User', backref='receipt')
+    customers = db.relationship('User', backref='customer_receipt')
 
-    def ___repr__(self):
+    def __repr__(self):
         return f'<Receipt {self.id} * User: {self.user}, Order_items: {self.order_items}, Total: {self.total}>'
 
 class User(db.Model, SerializerMixin):
@@ -85,7 +85,7 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    receipts = db.relationship('Receipt', backref='user')
+    receipts = db.relationship('Receipt', backref='customer')
     order_items = association_proxy('receipts', 'order_item')
 
     @hybrid_property

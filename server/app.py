@@ -5,7 +5,7 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, api, db
-from models import User, MenuItem
+from models import User, MenuItem, OrderItem
 
 class Home(Resource):
     
@@ -19,10 +19,9 @@ class MenuItems(Resource):
 
         menu = [item.to_dict() for item in MenuItem.query.all()]
         return make_response(menu, 200)
-    
 
 
-class OrderItem(Resource):
+class OrderItems(Resource):
     def get(self):
 
         orderitem = [item.to_dict() for item in OrderItem.query.all()]
@@ -30,7 +29,7 @@ class OrderItem(Resource):
 
 api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
-api.add_resource(OrderItem, '/orderitem')
+api.add_resource(OrderItems, '/orderitem')
     
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
