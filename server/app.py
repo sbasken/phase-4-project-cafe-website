@@ -7,19 +7,30 @@ from sqlalchemy.exc import IntegrityError
 from config import app, api, db
 from models import User, MenuItem
 
-class home(Resource):
+class Home(Resource):
     
     def get(self):
+
         return f'<h1>Welcome to our API!<h1>'
     
-class menuItems(Resource):
+class MenuItems(Resource):
 
     def get(self):
+
         menu = [item.to_dict() for item in MenuItem.query.all()]
         return make_response(menu, 200)
     
-api.add_resource(home, '/')
-api.add_resource(menuItems, '/menu')
+
+
+class OrderItem(Resource):
+    def get(self):
+
+        orderitem = [item.to_dict() for item in OrderItem.query.all()]
+        return make_response(orderitem, 200)
+
+api.add_resource(Home, '/')
+api.add_resource(MenuItems, '/menu')
+api.add_resource(OrderItem, '/orderitem')
     
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
