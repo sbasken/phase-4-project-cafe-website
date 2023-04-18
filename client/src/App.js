@@ -1,7 +1,7 @@
 import Home from './components/home';
-import Navbar from '../components/navbar';
-import Menu from '../components/menu';
-import Order from '../components/order';
+import Navbar from './components/Navbar';
+import Menu from './components/Menu';
+import Order from './components/Order';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 
