@@ -6,8 +6,11 @@ import About from './components/About';
 import Login from './components/Login';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
+import { useState } from'react';
 
 function App() {
+  const [ currentUser, setCurrentUser ] = useState(null);
+  
   return (
     <div >
       <div className="row">
