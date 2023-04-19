@@ -34,6 +34,7 @@ const Login = () => {
         </Grid.Column>
       </Grid>
     </Segment>
+        <h4 style={{textAlign:'center'}}>No Account? Sign up <a href="/signup">here</a></h4>
     </>
   )
 }
