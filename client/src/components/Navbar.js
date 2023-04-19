@@ -9,12 +9,6 @@ const Navbar = () => {
             <a className="item" href="/orders">Orders</a>
             <a className="item" href="/about">About</a>
         <div className="right menu">
-            <button class="ui vertical animated button">
-                <div class="hidden content">Shop</div>
-                <div class="visible content">
-                    <i aria-hidden="true" class="shop icon"></i>
-                </div>
-            </button>
             <a className="item" href="/signup">Sign In</a>
         </div>
     </div>
