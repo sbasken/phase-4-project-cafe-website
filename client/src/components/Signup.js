@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Checkbox, Form, Radio } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 const Signup = ({ setCurrentUser }) => {
-    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const formSchema = yup.object().shape({
         username: yup.string()
             .required('Required')
-            .min(5, 'Too Short!')
-            .max(15, 'Too Long!')
+            .min(5, 'Username needs to be at least 5 characters long.')
+            .max(15, 'Username needs to be at least 5 characters long.')
             .required('Required'),
         password: yup.string()
             .required('No password provided.') 
@@ -30,93 +29,87 @@ const Signup = ({ setCurrentUser }) => {
             password: '',
             customer: true
         },
-        validationScheme: formSchema,
+        validationSchema: formSchema,
         onSubmit: (values) => {
-            console.log("hello!")
-            setFormSubmitted(true);
-            fetch('/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            }).then(res => {
-                    if (res.ok) {
-                        res.json().then( new_user => setCurrentUser(new_user))
-                    } else {
-                        res.json().then( err => console.log(err))
-                    }
-                })
+            console.log("Creating a user...")
+            if (formik.isValid) {
+                fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                }).then(res => {
+                        if (res.ok) {
+                            res.json().then( new_user => setCurrentUser(new_user))
+                            console.log("User successfully created!")
+                        } else {
+                            res.json().then( err => console.log(err))
+                        }
+                    })
+
+            }
         }
 
     })
 
   return (
     <div>
-        <h1>Sign Up Form</h1>
+        <h1>Sign up Form</h1>
         <Form onSubmit={formik.handleSubmit} style={{ margin: "30px" }}>
-            <Form.Field>
+            <Form.Field validate>
                 <label>Username</label>
                 <input 
                     type="text"
                     name="username"
-                    autoComplete="off"
+                    placeholder='Username' 
                     value={formik.values.username}
                     onChange={formik.handleChange}
-                    placeholder='Username' 
                 />
-                {/* {formSubmitted && ( */}
-                <p style={{ color: "red" }}> {formik.errors.username}</p>
-                {/* )} */}
+                <p style={{ color: "purple" }}> {formik.errors.username}</p>
+
             </Form.Field>
-            <Form.Field>
+            <Form.Field validate>
                 <label>Password</label>
                 <input 
                     id="password"
                     name="password"
                     type="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
                     placeholder='Password' 
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                 />
-                {/* {formSubmitted && ( */}
-                <p style={{ color: "red" }}> {formik.errors.password}</p>
-                {/* )} */}
+                <p style={{ color: "purple" }}> {formik.errors.password}</p>
             </Form.Field>
-            <Form.Field>
+            <Form.Field validate>
                 <label>Confirm Password</label>
                 <input 
                     id="confirm-password"
                     name="confirm_password"
                     type="password"
-                    autoComplete="off"
+                    placeholder='Confirm password' 
                     onChange={formik.handleChange}
                     value={formik.values.confirm_password}
-                    placeholder='Confirm password' 
                 />
-                {/* {formSubmitted && ( */}
-                <p style={{ color: "red" }}> { formik.errors.confirm_password }</p>
-                {/* )} */}
+                <p style={{ color: "purple" }}> { formik.errors.confirm_password }</p>
             </Form.Field>
             <Radio slider label="Owner?"/>
-            <Form.Field>
+            <Form.Field validate>
+            <label>
                 <Checkbox 
                     id="checkbox-agree-ts"
-                    fitted
                     name="agreeTS"
-                    label={
-                        <label>
-                        I agree to the Terms and Conditions
-                        </label>
-                    }
-                    
-                    />
-                {/* {formSubmitted && ( */}
-                <p style={{ color: "red" }}> { formik.errors.agreeTS }</p>
-                {/* )} */}
+                    checked={formik.values.agreeTS}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                />
+                I agree to the Terms and Conditions
+            </label>
+                <p style={{ color: "purple" }}> { formik.errors.agreeTS }</p>
             </Form.Field>
-            <Button 
+            <Button
               className='ui button' 
+              onClick={formik.handleSubmit}
               type='submit'>Sign Up</Button>
         </Form>
     </div>
