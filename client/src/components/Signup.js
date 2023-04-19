@@ -30,7 +30,7 @@ const Signup = ({ setCurrentUser }) => {
             password: '',
             customer: true
         },
-        validationSchema: formSchema,
+        validationScheme: formSchema,
         onSubmit: (values) => {
             console.log("hello!")
             setFormSubmitted(true);
@@ -65,9 +65,9 @@ const Signup = ({ setCurrentUser }) => {
                     onChange={formik.handleChange}
                     placeholder='Username' 
                 />
-                {formSubmitted && (
+                {/* {formSubmitted && ( */}
                 <p style={{ color: "red" }}> {formik.errors.username}</p>
-                )}
+                {/* )} */}
             </Form.Field>
             <Form.Field>
                 <label>Password</label>
@@ -79,24 +79,24 @@ const Signup = ({ setCurrentUser }) => {
                     value={formik.values.password}
                     placeholder='Password' 
                 />
-                {formSubmitted && (
+                {/* {formSubmitted && ( */}
                 <p style={{ color: "red" }}> {formik.errors.password}</p>
-                )}
+                {/* )} */}
             </Form.Field>
             <Form.Field>
                 <label>Confirm Password</label>
                 <input 
                     id="confirm-password"
-                    name="confirm-password"
+                    name="confirm_password"
                     type="password"
                     autoComplete="off"
                     onChange={formik.handleChange}
                     value={formik.values.confirm_password}
                     placeholder='Confirm password' 
                 />
-                {formSubmitted && (
+                {/* {formSubmitted && ( */}
                 <p style={{ color: "red" }}> { formik.errors.confirm_password }</p>
-                )}
+                {/* )} */}
             </Form.Field>
             <Radio slider label="Owner?"/>
             <Form.Field>
@@ -111,9 +111,9 @@ const Signup = ({ setCurrentUser }) => {
                     }
                     
                     />
-                {formSubmitted && (
+                {/* {formSubmitted && ( */}
                 <p style={{ color: "red" }}> { formik.errors.agreeTS }</p>
-                )}
+                {/* )} */}
             </Form.Field>
             <Button 
               className='ui button' 
