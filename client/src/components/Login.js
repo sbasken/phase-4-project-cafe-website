@@ -2,8 +2,11 @@ import React from 'react'
 import { Segment, Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useHistory } from 'react-router-dom'
 
 const Login = ({setCurrentUser}) => {
+
+    // const history = useHistory();
 
     const formSchema = yup.object({
         username: yup.string().required(),
@@ -27,8 +30,8 @@ const Login = ({setCurrentUser}) => {
             })
             .then((res) => {
                 if (res.ok) {
-                    res.json().then((user) => setCurrentUser(user))
-                }
+                    res.json().then((user) => setCurrentUser(user)
+                    )}
                 
             })
         }
@@ -39,12 +42,13 @@ const Login = ({setCurrentUser}) => {
     <Segment secondary>
       <Grid >
         <Grid.Column verticalAlign='middle' >
-          <Form>
+          <Form onSubmit={formik.handleSubmit}>
           <h1>Login to Place an Order</h1>
           <br/>
             <Form.Field >
               <label>Username:</label>
               <Form.Input
+                name="username"
                 type="text"
                 placeholder="Username"
                 value={formik.values.username}
@@ -55,6 +59,7 @@ const Login = ({setCurrentUser}) => {
             <Form.Field>
               <label>Password:</label> 
               <Form.Input
+                name="password"
                 type="password"
                 placeholder="Password"
                 value={formik.values.password} 
@@ -63,13 +68,14 @@ const Login = ({setCurrentUser}) => {
               </Form.Field>
               <br/>
               <Button 
-              className='ui button'>Log In</Button>
+              className='ui button' 
+              type='submit'>Log In</Button>
               <br/>
           </Form>
         </Grid.Column>
       </Grid>
     </Segment>
-        {/* <h4 style={{textAlign:'center'}}>No Account? Sign up <a href="/signup">here</a></h4> */}
+        <h4 style={{textAlign:'center'}}>No Account? Sign up <a href="/signup">here</a></h4>
     </>
   )
 }
