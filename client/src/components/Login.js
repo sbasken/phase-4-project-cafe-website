@@ -2,11 +2,11 @@ import React from 'react'
 import { Segment, Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useHistory } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 const Login = ({setCurrentUser}) => {
 
-    // const history = useHistory();
+    const navigate = useNavigate();
 
     const formSchema = yup.object({
         username: yup.string().required(),
@@ -28,10 +28,10 @@ const Login = ({setCurrentUser}) => {
                 },
                 body: JSON.stringify(values),
             })
-            .then((res) => {
+            .then(res => {
                 if (res.ok) {
-                    res.json().then((user) => setCurrentUser(user)
-                    )}
+                    res.json().then((user) => setCurrentUser(user))
+                    navigate('/home')}
                 
             })
         }

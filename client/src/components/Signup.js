@@ -30,7 +30,7 @@ const Signup = ({ setCurrentUser }) => {
             password: '',
             customer: true
         },
-        validationSchema: formSchema,
+        validationScheme: formSchema,
         onSubmit: (values) => {
             console.log("hello!")
             setFormSubmitted(true);
