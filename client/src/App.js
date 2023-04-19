@@ -12,14 +12,14 @@ import { useState, useEffect } from'react';
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
 
-  useEffect(() => {
-    fetch("/check_session")
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((currentUser) => setCurrentUser(currentUser));
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/check_session")
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         r.json().then((currentUser) => setCurrentUser(currentUser));
+  //       }
+  //     });
+  // }, []);
   
   return (
     <div >
@@ -28,12 +28,11 @@ function App() {
       </div>
       <div className="row">
         <Routes>
-          <Route path="/home" element={<Home 
-          setCurrentUser={setCurrentUser}/>} />
+          <Route path="/home" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
         </Routes>
       </div>
