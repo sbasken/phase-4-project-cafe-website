@@ -24,7 +24,7 @@ function App() {
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
         </Routes>
       </div>
     </div>

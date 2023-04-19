@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Radio } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-const Signup = () => {
+const Signup = ({ setCurrentUser }) => {
 
     const formSchema = yup.object().shape({
         username: yup.string()
@@ -12,12 +12,36 @@ const Signup = () => {
             .max(15, 'Too Long!')
             .required('Required'),
         password: yup.string()
-            .min(8, 'password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special')
-            .minLowercase(1, 'password must contain at least 1 lower case letter')
-            .minUppercase(1, 'password must contain at least 1 upper case letter')
-            .minNumbers(1, 'password must contain at least 1 number')
-            .minSymbols(1, 'password must contain at least 1 special character'),
+            .required('No password provided.') 
+            .min(8, 'Password is too short - should be 8 chars minimum.')
+            .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
       })
+
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: '',
+            customer: true
+        },
+        validationSchema: formSchema,
+        onSubmit: values => {
+            fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+                .then(res => {
+                    if (res.ok) {
+                        res.json().then( new_user => setCurrentUser(new_user))
+                    } else {
+                        res.json().then( err => console.log(err))
+                    }
+                })
+        }
+
+    })
 
   return (
     <div>
