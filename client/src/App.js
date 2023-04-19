@@ -24,7 +24,8 @@ function App() {
   return (
     <div >
       <div className="row">
-        <Navbar currentUser={currentUser} />
+        <Navbar 
+        currentUser={currentUser} />
       </div>
       <div className="row">
         <Routes>

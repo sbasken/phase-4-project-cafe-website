@@ -32,9 +32,10 @@ const Login = ({setCurrentUser}) => {
                 if (res.ok) {
                     res.json().then((user) => setCurrentUser(user))
                     navigate('/home')}
-            else {
-                alert('Oops, username and password don\'t match');
-            }})
+                else {
+                    alert('Oops, username and password don\'t match');
+                }
+            })
 
 
         }
