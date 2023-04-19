@@ -2,8 +2,10 @@ import React from 'react'
 import { Button, Checkbox, Form, Radio } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useNavigate } from 'react-router-dom'
 
 const Signup = ({ setCurrentUser }) => {
+    let navigate = useNavigate();
 
     const formSchema = yup.object().shape({
         username: yup.string()
@@ -43,8 +45,12 @@ const Signup = ({ setCurrentUser }) => {
                         if (res.ok) {
                             res.json().then( new_user => setCurrentUser(new_user))
                             console.log("User successfully created!")
+                            navigate('/home')
                         } else {
-                            res.json().then( err => console.log(err))
+                            res.json().then( err => {
+                                console.log(err)
+                                alert('Oops, username is already taken. Please choose another one.')
+                            })
                         }
                     })
 
