@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Segment, Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -9,8 +9,8 @@ const Login = ({setCurrentUser}) => {
     const navigate = useNavigate();
 
     const formSchema = yup.object({
-        username: yup.string().required(),
-        password: yup.string().required(),
+        username: yup.string().required('Field required'),
+        password: yup.string().required('Field required'),
     });
 
     const formik = useFormik({
@@ -32,8 +32,11 @@ const Login = ({setCurrentUser}) => {
                 if (res.ok) {
                     res.json().then((user) => setCurrentUser(user))
                     navigate('/home')}
-                
-            })
+            else {
+                alert('Oops, username and password don\'t match');
+            }})
+
+
         }
     })
 
@@ -54,6 +57,7 @@ const Login = ({setCurrentUser}) => {
                 value={formik.values.username}
                 onChange={formik.handleChange}
               />
+              <p style={{ color: "red" }}> {formik.errors.username}</p>
             </Form.Field>
             <br/>
             <Form.Field>
@@ -65,6 +69,7 @@ const Login = ({setCurrentUser}) => {
                 value={formik.values.password} 
                 onChange={formik.handleChange}
               />
+              <p style={{ color: "red" }}> {formik.errors.password}</p>
               </Form.Field>
               <br/>
               <Button 
