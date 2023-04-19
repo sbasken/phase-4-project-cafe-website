@@ -3,8 +3,7 @@ import Navbar from './components/Navbar';
 import Menu from './components/Menu';
 import Order from './components/Orders';
 import About from './components/About';
-import Signup from './components/Signup';
-import Signin from './components/Signin';
+import Login from './components/Login';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { useState } from'react';
@@ -23,7 +22,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
-          <Route path="/signin" element={<Signin setCurrentUser={setCurrentUser}/>} />
+          <Route path="/signin" element={<Login />} />
         </Routes>
       </div>
     </div>
