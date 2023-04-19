@@ -29,7 +29,7 @@ const Signup = ({ setCurrentUser }) => {
             password: '',
             customer: true
         },
-        validationSchema: formSchema,
+        validationScheme: formSchema,
         onSubmit: (values) => {
             console.log("Creating a user...")
             if (formik.isValid) {

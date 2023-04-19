@@ -44,8 +44,7 @@ class Login(Resource):
 
         check_user = User.query.filter(User.username == data['username']).first()
         
-        if check_user:
-            check_user.authenticate(data['password'])
+        if check_user and check_user.authenticate(data['password']):
             session['user_id'] = check_user.id
             return make_response(check_user.to_dict(), 200)
         return {'error': 'Unauthorized'}, 401

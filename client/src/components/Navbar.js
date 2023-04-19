@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = () => {
+const Navbar = ({currentUser}) => {
   return (
     <div className="ui menu">
         <div className="header item">Component Cafe</div>
@@ -9,7 +9,8 @@ const Navbar = () => {
             <a className="item" href="/orders">Orders</a>
             <a className="item" href="/about">About</a>
         <div className="right menu">
-            <a className="item" href="/login">Login</a>
+            <a></a>
+            <a className="item" href="/login">{currentUser? `Welcome, ${currentUser.username}`:"Login"}</a>
         </div>
     </div>
   )
