@@ -4,27 +4,6 @@ export default function Home() {
     return(
       <div>
         <Header vertical>Featured Items:</Header>
-        {/* <Segment.Group horizontal>
-          <Segment textAlign='center'>
-            <Header icon class>
-            <Icon name='coffee' />
-            Item Details
-            </Header>
-          </Segment>
-          <Segment textAlign='center'>
-            <Header icon>
-            <Icon name='coffee' />
-            Item Details
-            </Header>
-          </Segment>
-          <Segment textAlign='center'>
-            <Header icon>
-            <Icon name='coffee' />
-            Item Details
-            </Header>
-          </Segment>
-        </Segment.Group> */}
-
         <Grid columns={3} divided>
         <Grid.Row textAlign="center">
           <Grid.Column>
