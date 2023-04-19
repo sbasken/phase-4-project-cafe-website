@@ -127,7 +127,7 @@ class OrderItems(Resource):
     def get(self):
         if session.get('user_id'):
             
-            orderItems_dict = [item.to_dict() for item in OrderItem.query.filter(User.id == id).all()]
+            orderItems_dict = [item.to_dict() for item in OrderItem.query.filter(User.id == session.get('user_id')).all()]
             return make_response(orderItems_dict, 200)
     
     def post(self):
