@@ -116,16 +116,11 @@ class MenuItemByID(Resource):
         
     def delete(self, id):
 
-        if session.get('user_id'):
-            found_user = User.query.filter(User.id == session.get('user_id')).first()
-            if found_user.customer == 0:
-                to_delete = MenuItem.query.filter_by(id=id).all()
-                if to_delete != None:
-                    db.session.delete(to_delete)
-                    db.session.commit()
-                else:
-                    return make_response({'error': ['Invalid input']}, 400) 
-            return {'error': 'Unauthorized'}, 401
+        to_delete = MenuItem.query.filter(MenuItem.id==id).first()
+        db.session.delete(to_delete)
+        db.session.commit()
+        
+        return make_response(jsonify({'Menu item successfully deleted!'}), 204)
 
 class OrderItems(Resource):
     def get(self):
@@ -224,7 +219,7 @@ class Receipt(Resource):
 
 api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
-api.add_resource(MenuItemByID, '/menuitem/<int:id>')
+api.add_resource(MenuItemByID, '/menu/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
 api.add_resource(Receipt, '/receipt')
 api.add_resource(Signup, '/signup', endpoint='signup')

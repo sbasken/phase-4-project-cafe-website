@@ -20,7 +20,9 @@ class MenuItem(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    order_items = db.relationship('OrderItem', backref='menuitem')
+    order_items = db.relationship(
+        'OrderItem', backref='menuitem',
+        cascade='all, delete-orphan')
 
     @validates('category')
     def validate_category(self, key, category):
