@@ -27,22 +27,37 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
     });
   }, [])
 
+  useEffect(() => {
+    const filtered = menuItems.filter(item => {
+      if (category === 'all') {
+        return true;
+      } else {
+        return item.category === category;
+      }
+    });
+    setFilteredItems(filtered);
+  }, [menuItems, category]);
+
   const deleteItem = (id) => {
     const updatedItems = menuItems.filter(item => item.id !== id)
     setMenuItems(updatedItems)
+    setFilteredItems(updatedItems)
+  }
+
+  const updateItem = (updatedItem) => {
+    const newItems = menuItems.map(item => {
+      if (item.id === updatedItem.id) {
+        return updatedItem
+      } else {
+        return item
+      }
+    })
+    setMenuItems(newItems)
+    setFilteredItems(newItems)
   }
 
   const handleFilter = (value) => {
     setCategory(value)
-    const items = menuItems.filter( item => {
-      if (value === 'all') {
-        return true;
-      } else {
-          return item.category === value;
-        }
-    }
-    )
-    setFilteredItems(items)
   }
   
   return (
@@ -76,7 +91,7 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
           <Grid Columns={2} stackable>
             { filteredItems.map(item => (
               <Grid.Column key={item.id} computer={8} tablet={16} mobile={16}>
-                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem}/>
+                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem} handleUpdateItem={updateItem}/>
               </Grid.Column>
             )) }
           </Grid>
