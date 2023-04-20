@@ -2,34 +2,38 @@ import React from 'react';
 import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const ItemCard = ({ item, currentUser, onDeleteItem }) => {
+const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem }) => {
 
     const addToCart = (e) => {
-      console.log(e)
       console.log(item.id)
-        // fetch('/orderitem', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(orderItemObj)
-        // })
+        fetch('/orderitem', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify()
+        })
     }
 
     const handleDelete = () => {
-        console.log("delete!")
-        fetch(`/menu/${item.id}`, {
-            method: 'DELETE'
-        })
-        .then(res => {
-            if (res.ok) {
-                res.json().then(() => {
+      console.log("delete!")
+      fetch(`/menu/${item.id}`, {
+          method: 'DELETE'
+      })
+      .then(res => {
+          if (res.ok) {
+              res.json().then(() => {
                   console.log(`Deleting item with id ${item.id}`)
                   onDeleteItem(item.id)
-                })
-        }}
-        )
+              })
+          }
+      })
+      .catch(error => {
+          console.error('Error deleting item:', error)
+      })
     }
+
+  
 
   return (
     <Card style={{ height: '400px' }}>
@@ -64,7 +68,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
             </Button.Content>
         </Button> ): (
             <div>
-              <Button floated='right' as={Link} to={`/menu/${item.id}`} >
+              <Button floated='right' as={Link} to={{ pathname: `/menu/${item.id}`, state: { handleUpdateItem } }}>
               <Icon name='edit'/>Edit</Button>
               <Button floated='right'onClick={handleDelete}>
                 <Icon name='delete'/>Delete</Button>

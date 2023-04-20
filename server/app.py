@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import make_response, request, session
+from flask import jsonify, make_response, request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
@@ -110,7 +110,7 @@ class MenuItemByID(Resource):
             print(found_user)
             if found_user.customer == False:
                 data = request.get_json()
-                to_update = MenuItem.query.filter_by(id=id).all()
+                to_update = MenuItem.query.filter_by(id=id).first()
                 
                 for key in data:
                     setattr(to_update, key, data[key])
@@ -127,7 +127,7 @@ class MenuItemByID(Resource):
         db.session.delete(to_delete)
         db.session.commit()
         
-        return make_response(jsonify({'Menu item successfully deleted!'}), 204)
+        return make_response(jsonify({'Item successfully deleted!'}), 204)
 
 class OrderItems(Resource):
     def get(self):

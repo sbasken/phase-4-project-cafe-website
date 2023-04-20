@@ -13,7 +13,7 @@ const options = [
     { key: 'r', text: 'Regular', value: 'false' }
   ]
 
-const EditItem = ({ onUpdateItem }) => {
+const EditItem = ({ handleUpdateItem }) => {
     const [ formData, setFormData ] = useState({
         name: "",
         price: 0,
@@ -58,7 +58,7 @@ const EditItem = ({ onUpdateItem }) => {
             .then(res => {
                 if (res.ok) {
                     res.json()
-                    .then(updatedItem => onUpdateItem(updatedItem))
+                    .then(updatedItem => handleUpdateItem(updatedItem))
                     navigate('/menu')
                 } else {
                     res.json().then(err => console.log(err))
@@ -97,7 +97,7 @@ const EditItem = ({ onUpdateItem }) => {
             fluid
             label='Category'
             name='category'
-            value={categories}
+            value={category}
             options={categories}
             onChange={handleChange}
             placeholder='Category'
