@@ -5,7 +5,6 @@ import Order from './components/Orders';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import EditItem from './components/EditItem';
 import Cart from './components/Cart';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
