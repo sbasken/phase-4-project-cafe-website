@@ -6,11 +6,11 @@ const Navbar = ({currentUser, handleLogout}) => {
         <div className="header item">Component Cafe</div>
             <a className="item" href="/home">Home</a>
             <a className="item" href="/menu">Menu</a>
-            <a className="item" href="/orders">Orders</a>
             <a className="item" href="/about">About</a>
         <div className="right menu">
         {currentUser ? 
             <>
+            <a className="item" href="/orders">Orders</a>
             <a className='item' href='/home' onClick={handleLogout}> Logout </a>
             <a className='item' href='/cart'> 🛒 </a> </>
             : null}

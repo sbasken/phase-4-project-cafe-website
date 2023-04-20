@@ -12,6 +12,54 @@ function Cart() {
       .catch(error => console.log(error));
   }, []);
 
+  const handleAdd = (item) => {
+    console.log(`/orderitem/${item.id}`)
+    fetch(`/orderitem/${item.id}`, {
+      
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            quantity: item.quantity += 1, 
+        })
+    })
+    .then(res => res.json())
+    .then(() =>updateQuantity(item))
+  }
+
+  const handleMinus = (item) => {
+    console.log(item)
+    fetch(`/orderitem/${item.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            quantity: item.quantity -= 1, 
+        })
+    })
+    .then(res => res.json())
+    .then(() => updateQuantity(item))
+  }
+
+  const handleDelete = (item) => {
+    console.log("delete!")
+    fetch(`/orderitem/${item.id}`, {
+        method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(() => {
+      setOrderItems(orderItems.filter(orderItem => orderItem.id !== item.id));
+    })
+}
+
+
+  const updateQuantity = (quantityChange) => {
+    const updatedItem = orderItems.map((item) => item.id === quantityChange.id ? quantityChange : item);
+    setOrderItems(updatedItem)
+  }
+
   return (
     <Container>
       <h2>Cart</h2>
@@ -24,11 +72,16 @@ function Cart() {
           meta={item.menuitem.description}/>
           <Card.Content>
           <Button.Group>
-            <Button> <Icon name='minus' /> </Button>
+            <Button
+            onClick={() => handleMinus(item)}
+            > <Icon name='minus' /> </Button>
             <Button.Or text={item.quantity} />
-            <Button> <Icon name='plus' /> </Button>
+            <Button
+             onClick={() => handleAdd(item)}
+             > <Icon name='plus' /> </Button>
           </Button.Group>
-          <Button floated='right'> <Icon name='trash' /> </Button>
+          <Button floated='right'
+          onClick={() => handleDelete(item)}> <Icon name='trash' /> </Button>
           </Card.Content>
           </Card>
         </div>

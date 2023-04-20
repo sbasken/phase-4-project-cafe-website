@@ -162,29 +162,43 @@ class OrderItems(Resource):
 
                 return make_response(order_item.to_dict(), 201)
             return {'error': 'Unauthorized'}, 401
+        
+class OrderItemByID(Resource):
     def patch(self, id):
         if session.get('user_id'):
             found_user = User.query.filter(User.id == session.get('user_id')).first()
-            if found_user.customer == 0:
+            if found_user:
                 data = request.get_json()
-                order_update = OrderItem.query.filter_by(id=id).all()
+                order_update = OrderItem.query.filter_by(id=id).first()
+                print(order_update.quantity)
 
-                for attr in order_update:
-                    setattr(order_update, attr, data[attr])
-                db.session.add(order_update)
-                db.session.commit()
-                
-                return make_response( order_update.to_dict(), 200)
+                if order_update:
+                    for attr in data:
+                        setattr(order_update, attr, data[attr])
+                    db.session.add(order_update)
+                    db.session.commit()
+                    return make_response(order_update.to_dict(), 200)
+                else:
+                    return {'error': 'OrderItem not found'}, 404
             return {'error': 'Unauthorized'}, 401 
         return {'error': 'Unauthorized'}, 401
+    
+    def delete(self, id):
 
-class Receipts(Resource):
+        to_delete = OrderItem.query.filter(OrderItem.id==id).first()
+        db.session.delete(to_delete)
+        db.session.commit()
+        
+        return make_response({'orderitem' : 'deleted'}, 204)
+
+class ReceiptsByID(Resource):
     def get(self, id):
         user_id = session.get('user_id')
         receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
         if receipt:
             return make_response(receipt.to_dict(), 200)
         return {'error': 'Not Found'}, 404
+    
     def patch(self, id):
         user_id = session.get('user_id')
         receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
@@ -196,6 +210,7 @@ class Receipts(Resource):
             return make_response(receipt.to_dict(), 200)
         return {'error': 'Not Found'}, 404
     
+class Receipts(Resource):
     def post(self):
         
         new = request.get_json()
@@ -228,7 +243,9 @@ api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
 api.add_resource(MenuItemByID, '/menu/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
+api.add_resource(OrderItemByID, '/orderitem/<int:id>')
 api.add_resource(Receipts, '/receipt')
+api.add_resource(ReceiptsByID, '/receipt/<int:id>')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
