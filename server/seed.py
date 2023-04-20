@@ -23,8 +23,8 @@ with app.app_context():
 
     print("Seeding orderitem data...")
     # create some order items
-    order_item1 = OrderItem(quantity=2, menuitem_id=1, receipt_id=None)
-    order_item2 = OrderItem(quantity=1, menuitem_id=2, receipt_id=None)
+    order_item1 = OrderItem(quantity=2, menuitem_id=1, receipt_id=2)
+    order_item2 = OrderItem(quantity=1, menuitem_id=2, receipt_id=1)
     order_item3 = OrderItem(quantity=3, menuitem_id=3, receipt_id=None)
     # orderitems = [order_item1, order_item2, order_item3]
 
