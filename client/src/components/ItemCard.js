@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 const ItemCard = ({ item, currentUser, onDeleteItem }) => {
 
     const addToCart = (e) => {
-      console.log(e)
-      console.log(item.id)
+
         // fetch('/orderitem', {
         //     method: 'POST',
         //     headers: {

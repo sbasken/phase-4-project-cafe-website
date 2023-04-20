@@ -6,17 +6,6 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
   const [ menuItems, setMenuItems ] = useState([])
   const [ category, setCategory ] = useState('all')
   const [ filteredItems, setFilteredItems ] = useState([])
-
-  // useEffect(() => {
-  //   fetch("/check_session")
-  //     .then((r) => {
-  //       if (r.ok) {
-  //         r.json().then((currentUser) => setCurrentUser(currentUser));
-  //       }
-  //     });
-  // }, []);
-
-  
   
   useEffect(() => {
     fetch("/menu")
