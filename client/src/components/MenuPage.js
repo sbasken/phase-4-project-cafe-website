@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Menu, Segment } from 'semantic-ui-react'
 import ItemCard from './ItemCard'
 
-const MenuPage = () => {
+const MenuPage = ({ currentUser }) => {
   const [ menuItems, setMenuItems ] = useState([])
   const [ category, setCategory] = useState('')
 
@@ -33,7 +33,7 @@ const MenuPage = () => {
 
         <Grid.Column stretched width={10}>
           <Segment>
-            { menuItems.map(item => <ItemCard key={item.id} item={item} />) }
+            { menuItems.map(item => <ItemCard key={item.id} item={item} currentUser={currentUser} />) }
           </Segment>
         </Grid.Column>
       </Grid>

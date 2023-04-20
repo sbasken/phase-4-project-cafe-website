@@ -11,6 +11,7 @@ import { useState, useEffect } from'react';
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
+  const [ currentReceipt, setCurrentReceipt ] = useState(null);
 
   // useEffect(() => {
   //   fetch("/check_session")
@@ -29,11 +30,11 @@ function App() {
       <div className="row">
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/menu" element={<MenuPage currentUser={currentUser}/>} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
-          <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser}/>} />
+          <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} setCurrentReceipt={setCurrentReceipt}/>} />
         </Routes>
       </div>
     </div>
