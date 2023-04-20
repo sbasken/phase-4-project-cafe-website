@@ -126,7 +126,8 @@ class OrderItems(Resource):
     def get(self):
         if session.get('user_id'):
             currentUser = session['user_id']
-            order_items = OrderItem.query.join(OrderItem.receipt_id).filter(Receipt.user_id == currentUser).all()
+            # order_items = OrderItem.query.join(OrderItem.receipt_id).filter(Receipt.user_id == currentUser).all()
+            order_items = OrderItem.query.filter(OrderItem.id == currentUser).all()
             order_items_dict = [item.to_dict() for item in order_items]
             return make_response(order_items_dict, 200)
     
@@ -209,12 +210,6 @@ class Receipt(Resource):
         print(new_receipt)
 
         return make_response(new_receipt.to_dict(), 201)
-        
-    
-
-
-               
-    
     
 
 api.add_resource(Home, '/')

@@ -10,10 +10,14 @@ import Cart from './components/Cart';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
+import {useNavigate} from 'react-router-dom'
+
 
 function App() {
   const [ currentUser, setCurrentUser ] = useState(null);
   const [ currentReceipt, setCurrentReceipt ] = useState(null);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     fetch("/check_session")
@@ -30,6 +34,7 @@ function App() {
         if (r.ok) {
           setCurrentUser(null)
         }
+        navigate('/home')
       })
     }
   
