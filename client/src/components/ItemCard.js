@@ -3,7 +3,6 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const ItemCard = ({ item, currentUser, onDeleteItem }) => {
-    console.log(currentUser.customer)
 
     const addToCart = (e) => {
       console.log(e)
@@ -47,7 +46,9 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
         {item.veg? "vegetarian friendly" : "Contains meat"}
       </div>
     </Card.Content>
-    { currentUser.customer ? 
+  
+  { currentUser && <>  
+  {currentUser?.customer ? 
         (<Button animated='vertical' onClick={addToCart}>
             <Button.Content hidden>Add to Cart</Button.Content>
             <Button.Content visible>
@@ -60,7 +61,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
               <Button floated='right'onClick={handleDelete}>
                 <Icon name='delete'/>Delete</Button>
             </div>
-    )}
+    )}</>}
     
   </Card>
   )
