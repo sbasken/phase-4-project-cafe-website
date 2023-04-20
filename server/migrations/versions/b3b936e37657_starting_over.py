@@ -1,8 +1,8 @@
-"""debugging relationship
+"""starting over
 
-Revision ID: aae5743d66e0
+Revision ID: b3b936e37657
 Revises: 
-Create Date: 2023-04-18 10:48:28.270666
+Create Date: 2023-04-20 11:54:31.569275
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'aae5743d66e0'
+revision = 'b3b936e37657'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,6 +24,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('veg', sa.Boolean(), nullable=True),
+    sa.Column('img_url', sa.String(), nullable=True),
     sa.Column('category', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
@@ -33,7 +34,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(), nullable=False),
     sa.Column('_password_hash', sa.String(), nullable=True),
-    sa.Column('customer', sa.Boolean(), nullable=True, default=True),
+    sa.Column('customer', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),

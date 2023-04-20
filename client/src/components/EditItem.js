@@ -19,17 +19,22 @@ const EditItem = ({ onUpdateItem }) => {
         price: 0,
         category: "",
         veggie: "",
-        description: ""
+        description: "",
+        img_url: ""
     })
-    const { name, price, category, veggie, description } = formData
+    const { name, price, img_url, category, veggie, description } = formData
     const { id } = useParams()
     const navigate = useNavigate();
+    console.log(id)
 
     
     useEffect(() => {
         fetch(`/menu/${id}`)
         .then(res => res.json())
-        .then(setFormData)
+        .then(data => {
+          console.log(data)
+          setFormData(data)
+        })
     }, [id])
     
     const handleChange = (e) => {
@@ -52,7 +57,8 @@ const EditItem = ({ onUpdateItem }) => {
         })
             .then(res => {
                 if (res.ok) {
-                    res.json().then(updatedItem => onUpdateItem(updatedItem))
+                    res.json()
+                    .then(updatedItem => onUpdateItem(updatedItem))
                     navigate('/menu')
                 } else {
                     res.json().then(err => console.log(err))
@@ -79,11 +85,19 @@ const EditItem = ({ onUpdateItem }) => {
             onChange={handleChange}
             placeholder='Price' 
         />
+          <Form.Input 
+            fluid 
+            label='Image URL' 
+            name='img_url'
+            value={img_url}
+            onChange={handleChange}
+            placeholder='Image URL' 
+        />
           <Form.Select
             fluid
             label='Category'
             name='category'
-            value={category}
+            value={categories}
             options={categories}
             onChange={handleChange}
             placeholder='Category'

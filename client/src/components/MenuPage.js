@@ -16,6 +16,8 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
   //     });
   // }, []);
 
+  
+  
   useEffect(() => {
     fetch("/menu")
     .then(res => res.json())
@@ -24,7 +26,7 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
       setFilteredItems(data)
     });
   }, [])
-  
+
   const deleteItem = (id) => {
     const updatedItems = menuItems.filter(item => item.id !== id)
     setMenuItems(updatedItems)
@@ -48,6 +50,11 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
         <Grid.Column width={4}>
           <Menu fluid vertical tabular>
             <Menu.Item
+              name='All'
+              value='all'
+              onClick={(e) => handleFilter(e.target.getAttribute('value'))}
+            />
+            <Menu.Item
               name='Drinks'
               value='drinks'
               onClick={(e) => handleFilter(e.target.getAttribute('value'))}
@@ -69,7 +76,7 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
           <Grid Columns={2} stackable>
             { filteredItems.map(item => (
               <Grid.Column key={item.id} computer={8} tablet={16} mobile={16}>
-                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem} />
+                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem}/>
               </Grid.Column>
             )) }
           </Grid>

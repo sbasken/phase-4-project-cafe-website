@@ -3,7 +3,6 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const ItemCard = ({ item, currentUser, onDeleteItem }) => {
-    console.log(currentUser.customer)
 
     const addToCart = (e) => {
       console.log(e)
@@ -24,14 +23,22 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
         })
         .then(res => {
             if (res.ok) {
-                res.json().then(() => onDeleteItem(item.id))
+                res.json().then(() => {
+                  console.log(`Deleting item with id ${item.id}`)
+                  onDeleteItem(item.id)
+                })
         }}
         )
     }
 
   return (
-    <Card>
-    <Image src='https://images.seattletimes.com/wp-content/uploads/2019/11/11122019_burgers_144441.jpg?d=780x520' wrapped ui={false} />
+    <Card style={{ height: '400px' }}>
+      <div style={{ height: '60%', overflow: 'hidden' }}>
+          <Image
+              src={item.img_url}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+      </div>
     <Card.Content>
       <Card.Header>{item.name}</Card.Header>
       <Card.Meta>
@@ -47,7 +54,9 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
         {item.veg? "vegetarian friendly" : "Contains meat"}
       </div>
     </Card.Content>
-    { currentUser.customer ? 
+  
+  { currentUser && <>  
+  {currentUser?.customer ? 
         (<Button animated='vertical' onClick={addToCart}>
             <Button.Content hidden>Add to Cart</Button.Content>
             <Button.Content visible>
@@ -60,7 +69,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
               <Button floated='right'onClick={handleDelete}>
                 <Icon name='delete'/>Delete</Button>
             </div>
-    )}
+    )}</>}
     
   </Card>
   )
