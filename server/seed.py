@@ -22,7 +22,7 @@ with app.app_context():
 
     print("Committing Menu data...")
     # add menu items to database
-    db.session.add_all([menu_item1, menu_item2, menu_item3, menu_item5, menu_item6, menu_item7, menu_item8, menu_item4])
+    db.session.add_all([ menu_item5, menu_item6, menu_item1, menu_item2, menu_item3, menu_item7, menu_item8, menu_item4])
     db.session.commit()
 
     print("Seeding orderitem data...")
