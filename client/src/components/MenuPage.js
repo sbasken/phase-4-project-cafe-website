@@ -7,15 +7,15 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
   const [ category, setCategory ] = useState('all')
   const [ filteredItems, setFilteredItems ] = useState([])
   
-  useEffect(() => {
-    fetch("/menu")
-    .then(res => res.json())
-    .then(data => {
-      setMenuItems(data)
-      setFilteredItems(data)
-    });
-  }, [])
-  
+  // useEffect(() => {
+  //   fetch("/menu")
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setMenuItems(data)
+  //     setFilteredItems(data)
+  //   });
+  // }, [])
+
 
   const deleteItem = (id) => {
     const updatedItems = menuItems.filter(item => item.id !== id)
