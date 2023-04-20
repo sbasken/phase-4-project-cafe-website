@@ -23,11 +23,20 @@ function App() {
         }
       });
   }, []);
+
+  const handleLogout = () => {
+    fetch("/logout", {method: "DELETE"})
+      .then((r) => {
+        if (r.ok) {
+          setCurrentUser(null)
+        }
+      })
+    }
   
   return (
     <div >
       <div className="row">
-        <Navbar currentUser={currentUser} />
+        <Navbar currentUser={currentUser} handleLogout={handleLogout}/>
       </div>
       <div className="row">
         <Routes>

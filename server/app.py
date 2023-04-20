@@ -47,14 +47,6 @@ class Login(Resource):
         if check_user and check_user.authenticate(data['password']):
             session['user_id'] = check_user.id
 
-            new_receipt = Receipt(
-                user_id=check_user.id,
-                total_amount=0.0,
-                completed=False
-            )
-            db.session.add(new_receipt)
-            db.session.commit()
-
             return make_response(check_user.to_dict(), 200)
         return {'error': 'Unauthorized'}, 401
         
@@ -135,8 +127,8 @@ class MenuItems(Resource):
 class OrderItems(Resource):
     def get(self):
         if session.get('user_id'):
-            user_id = session['user_id']
-            order_items = OrderItem.query.join(OrderItem.receipt).filter(Receipt.user_id == user_id).all()
+            currentUser = session['user_id']
+            order_items = OrderItem.query.join(OrderItem.receipt_id).filter(Receipt.user_id == currentUser).all()
             order_items_dict = [item.to_dict() for item in order_items]
             return make_response(order_items_dict, 200)
     
@@ -191,6 +183,39 @@ class Receipt(Resource):
             db.session.commit()
             return make_response(receipt.to_dict(), 200)
         return {'error': 'Not Found'}, 404
+    
+    def post(self):
+        
+        new = request.get_json()
+        print(new)
+        new_receipt = Receipt()
+        print(new_receipt)
+        new_receipt.user_id = new['user_id']
+        new_receipt.total = 0.00
+        new_receipt.completed = False
+        print(new_receipt)
+
+    #     new_receipt = Receipt(
+    #     user_id=['user_id'],
+    #     total=0,
+    #     completed=False
+    # )
+
+        # db.session.add(new_receipt)
+        # print(new_receipt)
+        # db.session.commit()
+
+        db.session.add(new_receipt)
+        print(new_receipt)
+        db.session.commit()
+        print(new_receipt)
+
+        return make_response(new_receipt.to_dict(), 201)
+        
+    
+
+
+               
     
     
 

@@ -58,7 +58,7 @@ class OrderItem(db.Model, SerializerMixin):
 class Receipt(db.Model, SerializerMixin):
     __tablename__ = 'receipts'
 
-    serialize_rules = ('-order_items', '-customers', '-created_at', '-updated_at', '-user_id')
+    serialize_rules = ('-order_items', '-customers', '-created_at', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -68,10 +68,10 @@ class Receipt(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     order_items = db.relationship('OrderItem', backref='receipt')
-    customers = db.relationship('User', backref='customer_receipt')
+    # customers = db.relationship('User', backref='customer_receipt')
 
     def __repr__(self):
-        return f'<Receipt {self.id} * User: {self.user}, Order_items: {self.order_items}, Total: {self.total}>'
+        return f'<Receipt {self.id} * User: {self.user_id}, Order_items: {self.order_items}, Total: {self.total}>'
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -102,6 +102,6 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
 
-    def ___repr__(self):
+    def __repr__(self):
         return f'<User {self.id} * Username: {self.username}, Customer: {self.customer}>'
 
