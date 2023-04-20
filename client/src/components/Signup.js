@@ -31,7 +31,7 @@ const Signup = ({ setCurrentUser, setCurrentReceipt }) => {
             password: '',
             customer: true
         },
-        validationScheme: formSchema,
+        validationSchema: formSchema,
         onSubmit: (values) => {
             console.log("Creating a user...")
             if (formik.isValid) {
@@ -48,8 +48,8 @@ const Signup = ({ setCurrentUser, setCurrentReceipt }) => {
                                 console.log("User successfully created!")
 
                                 fetch('/receipt')
+                                navigate('/home')
                             })
-                            navigate('/home')
                         } else {
                             res.json().then( err => {
                                 console.log(err)
@@ -103,7 +103,12 @@ const Signup = ({ setCurrentUser, setCurrentReceipt }) => {
                 />
                 <p style={{ color: "purple" }}> { formik.errors.confirm_password }</p>
             </Form.Field>
-            <Radio slider label="Owner?"/>
+            <Radio 
+                slider 
+                label="Owner?"
+                checked= {!formik.values.customer}
+                onChange={() => formik.setFieldValue("customer", !formik.values.customer)}
+                />
             <Form.Field validate>
             <label>
                 <Checkbox 
