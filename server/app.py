@@ -125,10 +125,16 @@ class MenuItemByID(Resource):
 class OrderItems(Resource):
     def get(self):
         if session.get('user_id'):
-            currentUser = session['user_id']
-            # order_items = OrderItem.query.join(OrderItem.receipt_id).filter(Receipt.user_id == currentUser).all()
-            order_items = OrderItem.query.filter(OrderItem.id == currentUser).all()
+            # user = User.query.filter(User.id == session.get('user_id')).first()
+            # print(user.order_items)
+            # order_items = user.order_items
+            # print([order_items])
+            # order_items = OrderItem.query.filter(OrderItem.id == currentUser).all()
+            order_items = OrderItem.query.join(Receipt.order_items).filter(Receipt.user_id == session.get('user_id')).all()
+
             order_items_dict = [item.to_dict() for item in order_items]
+        
+            
             return make_response(order_items_dict, 200)
     
     def post(self):
@@ -165,7 +171,7 @@ class OrderItems(Resource):
             return {'error': 'Unauthorized'}, 401 
         return {'error': 'Unauthorized'}, 401
 
-class Receipt(Resource):
+class Receipts(Resource):
     def get(self, id):
         user_id = session.get('user_id')
         receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
@@ -187,18 +193,17 @@ class Receipt(Resource):
         
         new = request.get_json()
         print(new)
-        new_receipt = Receipt()
-        print(new_receipt)
-        new_receipt.user_id = new['user_id']
-        new_receipt.total = 0.00
-        new_receipt.completed = False
-        print(new_receipt)
+        # new_receipt = Receipt()
+        # print(new_receipt)
+        # new_receipt.user_id = new['user_id']
+        # new_receipt.total = 0.00
+        # new_receipt.completed = False
+        # print(new_receipt)
 
-    #     new_receipt = Receipt(
-    #     user_id=['user_id'],
-    #     total=0,
-    #     completed=False
-    # )
+        new_receipt = Receipt(
+        user_id=new['user_id'])
+
+        print(new_receipt)
 
         # db.session.add(new_receipt)
         # print(new_receipt)
@@ -216,7 +221,7 @@ api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
 api.add_resource(MenuItemByID, '/menu/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
-api.add_resource(Receipt, '/receipt')
+api.add_resource(Receipts, '/receipt')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')

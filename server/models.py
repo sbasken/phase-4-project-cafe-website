@@ -43,7 +43,7 @@ class MenuItem(db.Model, SerializerMixin):
 class OrderItem(db.Model, SerializerMixin):
     __tablename__ = 'orderitems'
 
-    serialize_rules = ('-created_at', '-updated_at', '-menu_item', '-receipt', '-menuitem_id', '-receipt_id')
+    serialize_rules = ('-created_at', '-updated_at', '-receipt', '-menuitem_id', '-receipt_id')
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
@@ -71,6 +71,7 @@ class Receipt(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     order_items = db.relationship('OrderItem', backref='receipt')
+    menu_items = association_proxy('order_items', 'menuitem')
     # customers = db.relationship('User', backref='customer_receipt')
 
     def __repr__(self):
@@ -79,7 +80,7 @@ class Receipt(db.Model, SerializerMixin):
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-_password_hash', '-receipts', '-order_items', '-created_at', '-updated_at')
+    serialize_rules = ('-_password_hash', '-receipts', '-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
@@ -88,8 +89,8 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    receipts = db.relationship('Receipt', backref='customer')
-    order_items = association_proxy('receipts', 'order_item')
+    receipts = db.relationship('Receipt', backref='user')
+    order_items = association_proxy('receipts', 'order_items')
 
     @hybrid_property
     def password_hash(self):
