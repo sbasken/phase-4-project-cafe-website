@@ -6,15 +6,26 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
   const [ menuItems, setMenuItems ] = useState([])
   const [ category, setCategory ] = useState('all')
   const [ filteredItems, setFilteredItems ] = useState([])
-  
+
   // useEffect(() => {
-  //   fetch("/menu")
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     setMenuItems(data)
-  //     setFilteredItems(data)
-  //   });
-  // }, [])
+  //   fetch("/check_session")
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         r.json().then((currentUser) => setCurrentUser(currentUser));
+  //       }
+  //     });
+  // }, []);
+
+  
+  
+  useEffect(() => {
+    fetch("/menu")
+    .then(res => res.json())
+    .then(data => {
+      setMenuItems(data)
+      setFilteredItems(data)
+    });
+  }, [])
 
   const deleteItem = (id) => {
     const updatedItems = menuItems.filter(item => item.id !== id)
