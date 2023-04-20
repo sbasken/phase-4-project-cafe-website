@@ -6,6 +6,7 @@ import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import EditItem from './components/EditItem';
+import Cart from './components/Cart';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/menu/:id" element={<EditItem />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart currentUser={currentUser} />} />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} setCurrentReceipt={setCurrentReceipt}/>} />
         </Routes>
