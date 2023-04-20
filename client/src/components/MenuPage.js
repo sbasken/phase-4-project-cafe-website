@@ -15,6 +15,7 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
       setFilteredItems(data)
     });
   }, [])
+  
 
   const deleteItem = (id) => {
     const updatedItems = menuItems.filter(item => item.id !== id)
