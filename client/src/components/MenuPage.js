@@ -7,14 +7,14 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
   const [ category, setCategory ] = useState('all')
   const [ filteredItems, setFilteredItems ] = useState([])
 
-  useEffect(() => {
-    fetch("/check_session")
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((currentUser) => setCurrentUser(currentUser));
-        }
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/check_session")
+  //     .then((r) => {
+  //       if (r.ok) {
+  //         r.json().then((currentUser) => setCurrentUser(currentUser));
+  //       }
+  //     });
+  // }, []);
 
   useEffect(() => {
     fetch("/menu")
@@ -65,10 +65,14 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
           </Menu>
         </Grid.Column>
 
-        <Grid.Column stretched width={10}>
-          <Segment>
-            { filteredItems.map(item => <ItemCard key={item.id} item={item} currentUser={currentUser} onDeleteItem={deleteItem}/>) }
-          </Segment>
+        <Grid.Column stretched width={12}>
+          <Grid Columns={2} stackable>
+            { filteredItems.map(item => (
+              <Grid.Column key={item.id} computer={8} tablet={16} mobile={16}>
+                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem} />
+              </Grid.Column>
+            )) }
+          </Grid>
         </Grid.Column>
       </Grid>
     )

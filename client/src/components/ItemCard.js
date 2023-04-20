@@ -3,8 +3,11 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const ItemCard = ({ item, currentUser, onDeleteItem }) => {
+    console.log(currentUser.customer)
 
-    const addToCart = (id) => {
+    const addToCart = (e) => {
+      console.log(e)
+      console.log(item.id)
         // fetch('/orderitem', {
         //     method: 'POST',
         //     headers: {
