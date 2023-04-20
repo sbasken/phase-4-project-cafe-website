@@ -5,7 +5,7 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, api, db
-from models import User, MenuItem, OrderItem
+from models import User, MenuItem, OrderItem, Receipt
 
 class Signup(Resource):
 
@@ -46,6 +46,15 @@ class Login(Resource):
         
         if check_user and check_user.authenticate(data['password']):
             session['user_id'] = check_user.id
+
+            new_receipt = Receipt(
+                user_id=check_user.id,
+                total_amount=0.0,
+                completed=False
+            )
+            db.session.add(new_receipt)
+            db.session.commit()
+
             return make_response(check_user.to_dict(), 200)
         return {'error': 'Unauthorized'}, 401
         
@@ -126,9 +135,10 @@ class MenuItems(Resource):
 class OrderItems(Resource):
     def get(self):
         if session.get('user_id'):
-            
-            orderItems_dict = [item.to_dict() for item in OrderItem.query.filter(User.id == session.get('user_id')).all()]
-            return make_response(orderItems_dict, 200)
+            user_id = session['user_id']
+            order_items = OrderItem.query.join(OrderItem.receipt).filter(Receipt.user_id == user_id).all()
+            order_items_dict = [item.to_dict() for item in order_items]
+            return make_response(order_items_dict, 200)
     
     def post(self):
 
@@ -164,13 +174,30 @@ class OrderItems(Resource):
             return {'error': 'Unauthorized'}, 401 
         return {'error': 'Unauthorized'}, 401
 
+class Receipt(Resource):
+    def get(self, id):
+        user_id = session.get('user_id')
+        receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
+        if receipt:
+            return make_response(receipt.to_dict(), 200)
+        return {'error': 'Not Found'}, 404
+    def patch(self, id):
+        user_id = session.get('user_id')
+        receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
+        if receipt:
+            data = request.get_json()
+            for key, value in data.items():
+                setattr(receipt, key, value)
+            db.session.commit()
+            return make_response(receipt.to_dict(), 200)
+        return {'error': 'Not Found'}, 404
     
-    # def delete()
+    
 
 api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
 api.add_resource(OrderItems, '/orderitem')
-# api.add_resource(MenuItems, '/addmenu')
+api.add_resource(Receipt, '/receipt')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')
