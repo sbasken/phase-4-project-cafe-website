@@ -96,12 +96,19 @@ class MenuItems(Resource):
             return {'error': 'Unauthorized'}, 401
     
 class MenuItemByID(Resource):
+
+    def get(self, id):
+
+        item = MenuItem.query.filter(MenuItem.id==id).first()
+        return make_response(item.to_dict(), 200)
     
     def patch(self, id):
+        print(id)
         
         if session.get('user_id'):
             found_user = User.query.filter(User.id == session.get('user_id')).first()
-            if found_user.customer == 0:
+            print(found_user)
+            if found_user.customer == False:
                 data = request.get_json()
                 to_update = MenuItem.query.filter_by(id=id).all()
                 
