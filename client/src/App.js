@@ -31,7 +31,8 @@ function App() {
       <div className="row">
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/menu" element={<MenuPage currentUser={currentUser}/>} />
+          <Route path="/menu" element={<MenuPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+          <Route path="/menu/:id" element={<EditItem />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
           <Route path="/cart" element={<Cart currentUser={currentUser} />} />

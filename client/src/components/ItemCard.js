@@ -1,11 +1,10 @@
-import React from 'react'
-import { Card, Icon, Image, Button } from 'semantic-ui-react'
+import React from 'react';
+import { Card, Icon, Image, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-const ItemCard = ({ item, currentUser }) => {
-    console.log(item)
+const ItemCard = ({ item, currentUser, onDeleteItem }) => {
 
     const addToCart = (id) => {
-        console.log(id)
         // fetch('/orderitem', {
         //     method: 'POST',
         //     headers: {
@@ -13,6 +12,18 @@ const ItemCard = ({ item, currentUser }) => {
         //     },
         //     body: JSON.stringify(orderItemObj)
         // })
+    }
+
+    const handleDelete = () => {
+        console.log("delete!")
+        fetch(`/menu/${item.id}`, {
+            method: 'DELETE'
+        })
+        .then(res => {
+            if (res.ok) {
+                res.json().then(() => onDeleteItem(item.id))
+        }}
+        )
     }
 
   return (
@@ -28,17 +39,26 @@ const ItemCard = ({ item, currentUser }) => {
       </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      <a>
+      <div>
         <Icon name='food' />
         {item.veg? "vegetarian friendly" : "Contains meat"}
-      </a>
+      </div>
     </Card.Content>
-    <Button animated='vertical' onClick={addToCart}>
-      <Button.Content hidden>Add to Cart</Button.Content>
-      <Button.Content visible>
-        <Icon name='shop' />
-      </Button.Content>
-    </Button>
+    { currentUser.customer ? 
+        (<Button animated='vertical' onClick={addToCart}>
+            <Button.Content hidden>Add to Cart</Button.Content>
+            <Button.Content visible>
+                <Icon name='shop' />
+            </Button.Content>
+        </Button> ): (
+            <div>
+              <Button floated='right' as={Link} to={`/menu/${item.id}`} >
+              <Icon name='edit'/>Edit</Button>
+              <Button floated='right'onClick={handleDelete}>
+                <Icon name='delete'/>Delete</Button>
+            </div>
+    )}
+    
   </Card>
   )
 }
