@@ -30,8 +30,24 @@ const Login = ({setCurrentUser}) => {
             })
             .then(res => {
                 if (res.ok) {
-                    res.json().then((user) => setCurrentUser(user))
-                    navigate('/home')}
+                    res.json().then((user) => {setCurrentUser(user)
+                      const obj = {  user_id : 'user.id' }
+                      console.log(obj)
+                      fetch('/receipt', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({  user_id : user.id })
+                      })
+                    .then(res => { 
+                      if (res.ok) {
+                        res.json()
+                      .then(receipt => console.log(receipt))
+                      navigate('/home')}
+                    })
+                    })
+                    }
             else {
                 alert('Oops, username and password don\'t match');
             }})

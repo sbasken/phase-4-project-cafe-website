@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navbar = ({currentUser}) => {
+const Navbar = ({currentUser, handleLogout}) => {
   return (
     <div className="ui menu">
         <div className="header item">Component Cafe</div>
@@ -11,7 +11,7 @@ const Navbar = ({currentUser}) => {
         <div className="right menu">
         {currentUser ? 
             <>
-            <a className='item' href='/'> Logout </a>
+            <a className='item' href='/logout' onClick={handleLogout}> Logout </a>
             <a className='item' href='/cart'> 🛒 </a> </>
             : null}
             <a className="item" href="/login">{currentUser? `Welcome, ${currentUser.username}`:"Login"}</a>
