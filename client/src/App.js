@@ -5,6 +5,7 @@ import Order from './components/Orders';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import EditItem from './components/EditItem';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
@@ -30,7 +31,8 @@ function App() {
       <div className="row">
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/menu" element={<MenuPage currentUser={currentUser}/>} />
+          <Route path="/menu" element={<MenuPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
+          <Route path="/menu/:id" element={<EditItem />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />

@@ -11,14 +11,16 @@ with app.app_context():
     User.query.delete()
 
     print("Seeding Menu data...")
-    menu_item1 = MenuItem(price=10.99, name='Cheeseburger', description='A juicy beef patty with melted cheese', veg=False, category='Burgers')
-    menu_item2 = MenuItem(price=8.99, name='Veggie Burger', description='A meatless patty with fresh veggies', veg=True, category='Burgers')
-    menu_item3 = MenuItem(price=5.99, name='Fries', description='Crispy golden fries', veg=True, category='Sides')
-    menu_item4 = MenuItem(price=1.99, name='Soda', description='Refreshing carbonated drink', veg=True, category='Beverages')
+    menu_item1 = MenuItem(price=10.99, name='Cheeseburger', description='A juicy beef patty with melted cheese', veg=False, category='food')
+    menu_item2 = MenuItem(price=8.99, name='Veggie Burger', description='A meatless patty with fresh veggies', veg=True, category='food')
+    menu_item3 = MenuItem(price=5.99, name='Fries', description='Crispy golden fries', veg=True, category='food')
+    menu_item4 = MenuItem(price=1.99, name='Soda', description='Refreshing carbonated drink', veg=True, category='drinks')
+    menu_item5 = MenuItem(price=4.99, name='Cuppucino', description='Delicious espresso drinks with formy milk on top', veg=True, category='drinks')
+    menu_item6 = MenuItem(price=5.99, name='Latte', description='Mily spresso drink', veg=True, category='drinks')
 
     print("Committing Menu data...")
     # add menu items to database
-    db.session.add_all([menu_item1, menu_item2, menu_item3, menu_item4])
+    db.session.add_all([menu_item1, menu_item2, menu_item3, menu_item4, menu_item5, menu_item6])
     db.session.commit()
 
     print("Seeding orderitem data...")
