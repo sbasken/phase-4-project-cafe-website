@@ -11,7 +11,7 @@ const Navbar = ({currentUser, handleLogout}) => {
         <div className="right menu">
         {currentUser ? 
             <>
-            <a className='item' href='/logout' onClick={handleLogout}> Logout </a>
+            <a className='item' href='/home' onClick={handleLogout}> Logout </a>
             <a className='item' href='/cart'> 🛒 </a> </>
             : null}
             <a className="item" href="/login">{currentUser? `Welcome, ${currentUser.username}`:"Login"}</a>
