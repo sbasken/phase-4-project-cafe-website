@@ -85,7 +85,8 @@ class MenuItems(Resource):
                     name = new['name'],
                     description = new['description'],
                     veg = new['veg'],
-                    category = new['category']
+                    category = new['category'],
+                    img_url = new['img_url']
                 )
 
                 db.session.add(new_item)
@@ -93,6 +94,8 @@ class MenuItems(Resource):
 
                 return make_response(new_item.to_dict(), 201)
             return {'error': 'Unauthorized'}, 401
+    
+class MenuItemByID(Resource):
     
     def patch(self, id):
         
@@ -221,6 +224,7 @@ class Receipt(Resource):
 
 api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
+api.add_resource(MenuItemByID, '/menuitem/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
 api.add_resource(Receipt, '/receipt')
 api.add_resource(Signup, '/signup', endpoint='signup')

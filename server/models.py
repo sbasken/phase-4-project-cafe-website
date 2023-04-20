@@ -15,6 +15,7 @@ class MenuItem(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
     veg = db.Column(db.Boolean)
+    img_url = db.Column(db.String)
     category = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
