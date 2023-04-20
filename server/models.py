@@ -40,7 +40,7 @@ class MenuItem(db.Model, SerializerMixin):
 class OrderItem(db.Model, SerializerMixin):
     __tablename__ = 'orderitems'
 
-    serialize_rules = ('-created_at', '-updated_at', '-menu_item', '-receipt', '-menuitem_id', '-receipt_id')
+    serialize_rules = ('-created_at', '-updated_at', '-menu_item', '-receipts', '-menuitem_id', '-receipt_id')
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
@@ -50,7 +50,8 @@ class OrderItem(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
     # menu_item = db.relationship('MenuItem', backref='orderitem')
-    # receipt = db.relationship('Receipt', backref='orderitem')
+    receipts = db.relationship('Receipt', back_populates='order_items')
+    users = association_proxy('receipts', 'user_id')
 
     def ___repr__(self):
         return f'<OrderItem {self.id} >'
@@ -67,11 +68,11 @@ class Receipt(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    order_items = db.relationship('OrderItem', backref='receipt')
-    customers = db.relationship('User', backref='customer_receipt')
+    order_items = db.relationship('OrderItem', back_populates='receipts')
+    customer = db.relationship('User', back_populates='customer_receipts')
 
     def __repr__(self):
-        return f'<Receipt {self.id} * User: {self.user}, Order_items: {self.order_items}, Total: {self.total}>'
+        return f'<Receipt {self.id} * User: {self.customer}, Order_items: {self.order_items}, Total: {self.total}>'
 
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
@@ -85,8 +86,8 @@ class User(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-    receipts = db.relationship('Receipt', backref='customer')
-    order_items = association_proxy('receipts', 'order_item')
+    customer_receipts = db.relationship('Receipt', back_populates='customer')
+    order_items = association_proxy('customer_receipts', 'order_item')
 
     @hybrid_property
     def password_hash(self):

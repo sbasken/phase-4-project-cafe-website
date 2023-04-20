@@ -5,7 +5,7 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, api, db
-from models import User, MenuItem, OrderItem
+from models import User, MenuItem, OrderItem, Receipt
 
 class Signup(Resource):
 
@@ -114,6 +114,7 @@ class MenuItems(Resource):
 
         if session.get('user_id'):
             found_user = User.query.filter(User.id == session.get('user_id')).first()
+            
             if found_user.customer == 0:
                 to_delete = MenuItem.query.filter_by(id=id).all()
                 if to_delete != None:
@@ -125,10 +126,21 @@ class MenuItems(Resource):
 
 class OrderItems(Resource):
     def get(self):
-        if session.get('user_id'):
-            
-            orderItems_dict = [item.to_dict() for item in OrderItem.query.filter(User.id == id).all()]
-            return make_response(orderItems_dict, 200)
+        currentUser = session.get('user_id')
+        if currentUser:
+            order_items = OrderItem.query.join(Receipt).filter(Receipt.user_id == currentUser).all()
+            order_items_dict = [item.to_dict() for item in order_items]
+            # orderItems_dict = [item.to_dict() for item in OrderItem.query.filter(OrderItem.customers == session.get('user_id')).all()]
+            # orderItems_dict = [item.to_dict() for item in OrderItem.query.filter(OrderItem.receipts.has(Receipt.user_id == currentUser)).all()]
+            # print(OrderItem.receipts.query.filter(Receipt.user_id == session.get('user_id')))
+            # all_items = OrderItem.query.all()
+            # for item in all_items:
+            #     if (item.users == session.get('user_id')):
+            #         print(item)
+            # # print(all_items)
+            # orderItems_dict = [item.to_dict() for item in all_items]
+            # # print(session.get('user_id'))
+            return make_response(order_items_dict, 200)
     
     def post(self):
 
