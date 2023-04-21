@@ -77,7 +77,7 @@ class MenuItems(Resource):
         
         if session.get('user_id'):
             found_user = User.query.filter(User.id == session.get('user_id')).first()
-            if found_user.customer == 0:
+            if found_user.customer == False:
                 new = request.get_json()
                 
                 new_item = MenuItem(
