@@ -93,14 +93,16 @@ console.log(total)
 
     <Container>
       <h2>Cart</h2>
-      <Grid>
-        <Grid.Column width={8}>
+      <Grid centered>
+        <Grid.Column width={6}>
 
       <Card.Group centered>
         {orderItems.map(item => (
           <div key={item.id}>
             <Card fluid color='orange'>
-              <Image size='medium' src={item.menuitem.img_url} />
+              <Image src={item.menuitem.img_url} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
               <Card.Content header={item.menuitem.name} meta={item.menuitem.price} />
               <Card.Content>
                 <Button.Group>

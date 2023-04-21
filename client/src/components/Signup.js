@@ -46,7 +46,7 @@ const Signup = ({ setCurrentUser, setCurrentReceipt }) => {
                             res.json().then( (new_user) => {
                                 setCurrentUser(new_user)
                                 console.log("User successfully created!")
-                                fetch('/receipt', {
+                                fetch('/receipts', {
                                     method: 'POST',
                                     headers: {
                                       'Content-Type': 'application/json',
