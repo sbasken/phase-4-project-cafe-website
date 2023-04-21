@@ -5,7 +5,7 @@ function Orders({currentUser}) {
   const [receipts, setReceipts] = useState([]);
 
   useEffect(() => {
-    fetch('/receipt', { credentials: 'include' })
+    fetch('/receipts', { credentials: 'include' })
       .then(response => response.json())
       .then(data => setReceipts(data))
       .catch(error => console.log(error));

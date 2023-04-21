@@ -33,7 +33,7 @@ const Login = ({setCurrentUser, setCurrentReceipt}) => {
                     res.json().then((user) => {setCurrentUser(user)
                       const obj = {  user_id : 'user.id' }
                       console.log(obj)
-                      fetch('/receipt', {
+                      fetch('/receipts', {
                         method: 'POST',
                         headers: {
                           'Content-Type': 'application/json',
