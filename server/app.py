@@ -191,24 +191,32 @@ class OrderItemByID(Resource):
         
         return make_response({'orderitem' : 'deleted'}, 204)
 
-class ReceiptsByID(Resource):
+class ReceiptByID(Resource):
     def get(self, id):
-        user_id = session.get('user_id')
-        receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
+        receipt = Receipt.query.filter_by(id=id).first()
         if receipt:
             return make_response(receipt.to_dict(), 200)
         return {'error': 'Not Found'}, 404
     
     def patch(self, id):
-        user_id = session.get('user_id')
-        receipt = Receipt.query.filter_by(id=id, user_id=user_id).first()
-        if receipt:
-            data = request.get_json()
-            for key, value in data.items():
-                setattr(receipt, key, value)
-            db.session.commit()
-            return make_response(receipt.to_dict(), 200)
-        return {'error': 'Not Found'}, 404
+        print(id)
+        if session.get('user_id'):
+            found_user = User.query.filter(User.id == session.get('user_id')).first()
+            if found_user:
+                data = request.get_json()
+                print(data)
+                to_update = Receipt.query.filter_by(id = id).first()
+                print(to_update)
+                if to_update:
+                    for attr in data:
+                        setattr(to_update, attr, data[attr])
+                    db.session.add(to_update)
+                    db.session.commit()
+                    return make_response(to_update.to_dict(), 200)
+                else:
+                    return {'error': 'Receipt not found'}, 404
+            return {'error': 'Unauthorized'}, 401 
+        return {'error': 'Unauthorized'}, 401
     
 class Receipts(Resource):
 
@@ -246,8 +254,8 @@ api.add_resource(MenuItems, '/menu')
 api.add_resource(MenuItemByID, '/menu/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
 api.add_resource(OrderItemByID, '/orderitem/<int:id>')
-api.add_resource(Receipts, '/receipt')
-api.add_resource(ReceiptsByID, '/receipt/<int:id>')
+api.add_resource(Receipts, '/receipts')
+api.add_resource(ReceiptByID, '/receipts/<int:id>')
 api.add_resource(Signup, '/signup', endpoint='signup')
 api.add_resource(CheckSession, '/check_session', endpoint='check_session')
 api.add_resource(Login, '/login', endpoint='login')

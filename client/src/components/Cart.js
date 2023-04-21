@@ -74,14 +74,14 @@ function Cart({currentReceipt}) {
   };
 
   const handleCheckout = (currentReceipt) => {
-    fetch(`/receipt/${currentReceipt.id}`, {
+    console.log(currentReceipt.id)
+    fetch(`/receipts/${currentReceipt.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         total: total,
-        completed: 'False'
       })
     })
       .then(res => res.json())
@@ -126,7 +126,7 @@ console.log(total)
       <Segment>
         <Header>Total</Header>
         <h2>{total}</h2>
-        <Button onClick={() => handleCheckout()}>Place Order</Button>
+        <Button onClick={() => handleCheckout(currentReceipt)}>Place Order</Button>
       </Segment>
       </Grid.Column>
 
