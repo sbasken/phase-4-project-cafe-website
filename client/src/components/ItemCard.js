@@ -58,18 +58,18 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
   { currentUser && <>  
   {currentUser?.customer ? 
         (<Button animated='vertical' onClick={addToCart}>
-        <Button.Content hidden>Add to Cart</Button.Content>
-        <Button.Content visible>
-            <Icon name='shop' />
-        </Button.Content>
-    </Button> ): (
-        <div>
-          <Button floated='right' as={Link} to={{ pathname: `/menu/${item.id}`, state: { handleUpdateItem } }}>
-          <Icon name='edit'/>Edit</Button>
-          <Button floated='right'onClick={handleDelete}>
-            <Icon name='delete'/>Delete</Button>
-        </div>
-)}</>}
+            <Button.Content hidden>Add to Cart</Button.Content>
+            <Button.Content visible>
+                <Icon name='shop' />
+            </Button.Content>
+        </Button> ): (
+            <div>
+              <Button floated='right' as={Link} to={{ pathname: `/menu/${item.id}`, state: { handleUpdateItem } }}>
+              <Icon name='edit'/>Edit</Button>
+              <Button floated='right'onClick={handleDelete}>
+                <Icon name='delete'/>Delete</Button>
+            </div>
+    )}</>}
     
   </Card>
   )
