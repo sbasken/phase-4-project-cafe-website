@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import {useNavigate} from 'react-router-dom'
 
-const Login = ({setCurrentUser}) => {
+const Login = ({setCurrentUser, setCurrentReceipt}) => {
 
     const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const Login = ({setCurrentUser}) => {
                     .then(res => { 
                       if (res.ok) {
                         res.json()
-                      .then(receipt => console.log(receipt))
+                      .then(receipt => setCurrentReceipt(receipt))
                       navigate('/home')}
                     })
                     })

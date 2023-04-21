@@ -211,31 +211,33 @@ class ReceiptsByID(Resource):
         return {'error': 'Not Found'}, 404
     
 class Receipts(Resource):
+
+    def get(self):
+
+        receipt = Receipt.query.filter(Receipt.user_id == session.get('user_id')).all()
+        print(receipt)
+        if receipt:
+            receipts = [item.to_dict() for item in receipt]
+            print(receipts)
+            return make_response(receipts, 200)
+        return {'error': 'Not Found'}, 404
+    
+    
     def post(self):
         
         new = request.get_json()
         print(new)
-        # new_receipt = Receipt()
-        # print(new_receipt)
-        # new_receipt.user_id = new['user_id']
-        # new_receipt.total = 0.00
-        # new_receipt.completed = False
-        # print(new_receipt)
+        new_receipt = Receipt()
+       
+        new_receipt.user_id = new['user_id']
+        new_receipt.total = 0.00
+        new_receipt.completed = False
 
-        new_receipt = Receipt(
-        user_id=new['user_id'])
-
-        print(new_receipt)
-
-        # db.session.add(new_receipt)
-        # print(new_receipt)
-        # db.session.commit()
+        # new_receipt = Receipt(
+        # user_id=new['user_id'])
 
         db.session.add(new_receipt)
-        print(new_receipt)
         db.session.commit()
-        print(new_receipt)
-
         return make_response(new_receipt.to_dict(), 201)
     
 

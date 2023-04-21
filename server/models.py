@@ -61,7 +61,7 @@ class OrderItem(db.Model, SerializerMixin):
 class Receipt(db.Model, SerializerMixin):
     __tablename__ = 'receipts'
 
-    serialize_rules = ('-order_items', '-customers', '-created_at', '-updated_at',)
+    serialize_rules = ('-order_items', '-customers', '-updated_at',)
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
