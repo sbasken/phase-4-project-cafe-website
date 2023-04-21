@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentReceipt }) => {
 
     const addToCart = (e) => {
+
+      e.target.innerText = "Item added";
+
       console.log(item.id)
         fetch('/orderitem', {
             method: 'POST',
@@ -25,6 +28,9 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
           })
         }
         })  
+        setTimeout(() => {
+          e.target.innerText = "Add to Cart";
+      }, 2000);
     }
 
     const handleDelete = () => {

@@ -11,7 +11,7 @@ import NewItem from './components/NewItem';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from'react';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function App() {
