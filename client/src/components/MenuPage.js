@@ -84,7 +84,7 @@ const MenuPage = ({ currentUser, currentReceipt }) => {
           <Grid Columns={2} stackable>
             { filteredItems.map(item => (
               <Grid.Column key={item.id} computer={8} tablet={16} mobile={16}>
-                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem} handleUpdateItem={updateItem}/>
+                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem} currentReceipt={currentReceipt}/>
               </Grid.Column>
             )) }
           </Grid>
