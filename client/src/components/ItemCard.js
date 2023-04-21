@@ -2,18 +2,18 @@ import React from 'react';
 import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const ItemCard = ({ item, currentUser, onDeleteItem }) => {
+const ItemCard = ({ item, currentUser, onDeleteItem, currentReceipt }) => {
+    console.log(currentReceipt, "in ItemCard")
 
     const addToCart = (e) => {
-      console.log(e)
       console.log(item.id)
-        // fetch('/orderitem', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(orderItemObj)
-        // })
+        fetch('/orderitem', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify()
+        })
     }
 
     const handleDelete = () => {
@@ -57,19 +57,19 @@ const ItemCard = ({ item, currentUser, onDeleteItem }) => {
   
   { currentUser && <>  
   {currentUser?.customer ? 
-        (<Button animated='vertical' onClick={addToCart}>
-            <Button.Content hidden>Add to Cart</Button.Content>
-            <Button.Content visible>
-                <Icon name='shop' />
-            </Button.Content>
-        </Button> ): (
-            <div>
-              <Button floated='right' as={Link} to={`/menu/${item.id}`} >
-              <Icon name='edit'/>Edit</Button>
-              <Button floated='right'onClick={handleDelete}>
-                <Icon name='delete'/>Delete</Button>
-            </div>
-    )}</>}
+      (<Button animated='vertical' onClick={addToCart}>
+          <Button.Content hidden>Add to Cart</Button.Content>
+          <Button.Content visible>
+              <Icon name='shop' />
+          </Button.Content>
+      </Button> ): (
+          <div>
+            <Button floated='right' as={Link} to={`/menu/${item.id}`} >
+            <Icon name='edit'/>Edit</Button>
+            <Button floated='right'onClick={handleDelete}>
+              <Icon name='delete'/>Delete</Button>
+          </div>
+  )}</>}
     
   </Card>
   )
