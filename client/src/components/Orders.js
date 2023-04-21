@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Container } from 'semantic-ui-react';
+import { Card, Container, Button } from 'semantic-ui-react';
 
 function Orders({currentUser}) {
   const [receipts, setReceipts] = useState([]);
+
 
   useEffect(() => {
     fetch('/receipts', { credentials: 'include' })
@@ -13,9 +14,28 @@ function Orders({currentUser}) {
 
   console.log(receipts)
 
+  const handleCompleteReceipt = (receipt) => {
+    console.log(`in patch ${receipt}`)
+    fetch(`/receipts/${receipt}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ completed: true }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setReceipts(prevReceipts => prevReceipts.map(receipt => {
+          if (receipt.id === data.id) {
+            return data;
+          }
+          return receipt;
+        }));
+      })
+      .catch(error => console.log(error));
+  }
+
   const completedReceipts = receipts.filter(receipt => receipt.completed);
   const activeReceipts = receipts.filter(receipt => !receipt.completed);
-
+console.log(currentUser)
   return (
     <Container>
       <h2>Active Orders</h2>
@@ -30,6 +50,10 @@ function Orders({currentUser}) {
               <Card.Content>
                 <p>Order Date: {new Date(receipt.created_at).toLocaleString()}</p>
                 <p>Status: {receipt.completed ? 'Completed' : 'Active'}</p>
+                { currentUser && !currentUser.customer ? (
+                  <Button onClick={() => handleCompleteReceipt(receipt.id)}>Mark Completed</Button>
+                ): null}
+
               </Card.Content>
             </Card>
           </div>
