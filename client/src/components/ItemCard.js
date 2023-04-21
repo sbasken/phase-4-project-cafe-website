@@ -6,7 +6,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
   console.log(item.id, currentReceipt.id)
 
   const orderItemObj = {
-    item_id: item.id,
+    menuitem_id: item.id,
     receipt_id: currentReceipt.id,
     quantity: 1
   }
@@ -21,6 +21,14 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
             },
             body: JSON.stringify(orderItemObj)
         })
+        .then(res => {
+          if (res.ok) {
+            res.json().then(data => {
+              console.log(data)
+              console.log(`Item successfully added to cart.`)
+          })
+        }
+        })  
     }
 
     const handleDelete = () => {
