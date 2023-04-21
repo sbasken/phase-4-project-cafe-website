@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Menu, Segment } from 'semantic-ui-react'
+import { Grid, Menu, Button } from 'semantic-ui-react'
 import ItemCard from './ItemCard'
 
-const MenuPage = ({ currentUser, setCurrentUser }) => {
+const MenuPage = ({ currentUser, currentReceipt }) => {
   const [ menuItems, setMenuItems ] = useState([])
   const [ category, setCategory ] = useState('all')
   const [ filteredItems, setFilteredItems ] = useState([])
-
-  // useEffect(() => {
-  //   fetch("/check_session")
-  //     .then((r) => {
-  //       if (r.ok) {
-  //         r.json().then((currentUser) => setCurrentUser(currentUser));
-  //       }
-  //     });
-  // }, []);
-
-  
   
   useEffect(() => {
     fetch("/menu")
@@ -85,6 +74,10 @@ const MenuPage = ({ currentUser, setCurrentUser }) => {
               onClick={(e) => handleFilter(e.target.getAttribute('value'))}
             />
           </Menu>
+          { currentUser && <>  
+            {currentUser?.customer ? (null) :
+            (<Button>Add Item</Button>
+            )}</>}
         </Grid.Column>
 
         <Grid.Column stretched width={12}>
