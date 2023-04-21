@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const ItemCard = ({ item, currentUser, onDeleteItem, currentReceipt }) => {
+const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentReceipt }) => {
     console.log(currentReceipt, "in ItemCard")
 
     const addToCart = (e) => {
@@ -64,7 +64,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem, currentReceipt }) => {
           </Button.Content>
       </Button> ): (
           <div>
-            <Button floated='right' as={Link} to={`/menu/${item.id}`} >
+            <Button floated='right' as={Link} to={{ pathname: `/menu/${item.id}`, state: { handleUpdateItem } }}>
             <Icon name='edit'/>Edit</Button>
             <Button floated='right'onClick={handleDelete}>
               <Icon name='delete'/>Delete</Button>
