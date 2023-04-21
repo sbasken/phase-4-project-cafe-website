@@ -46,23 +46,25 @@ const Signup = ({ setCurrentUser, setCurrentReceipt }) => {
                             res.json().then( (new_user) => {
                                 setCurrentUser(new_user)
                                 console.log("User successfully created!")
-                                fetch('/receipts', {
-                                    method: 'POST',
-                                    headers: {
-                                      'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({  user_id : new_user.id })
-                                  })
-                                .then(res => { 
-                                  if (res.ok) {
-                                    res.json()
-                                  .then(receipt => {
-                                    console.log(receipt)
-                                    setCurrentReceipt(receipt)
-                                })
-                                navigate('/home')}
-                                })  
+                                    if (new_user.customer === true) {
+                                        fetch('/receipts', {
+                                        method: 'POST',
+                                        headers: {
+                                        'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({  user_id : new_user.id })
+                                        })
+                                        .then(res => { 
+                                        if (res.ok) {
+                                            res.json()
+                                        .then(receipt => {
+                                            console.log(receipt)
+                                            setCurrentReceipt(receipt)
+                                        })
+                                        navigate('/home')}
+                                    })}
                             })
+                            navigate('/home')
                         } else {
                             res.json().then( err => {
                                 console.log(err)

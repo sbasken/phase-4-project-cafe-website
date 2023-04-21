@@ -11,7 +11,7 @@ class Signup(Resource):
 
     def post(self):
         data = request.get_json()
-
+        print(data)
         try:
             new_user = User(
                 username = data['username'],
@@ -221,13 +221,17 @@ class ReceiptByID(Resource):
 class Receipts(Resource):
 
     def get(self):
-
-        receipt = Receipt.query.filter(Receipt.user_id == session.get('user_id')).all()
-        print(receipt)
-        if receipt:
-            receipts = [item.to_dict() for item in receipt]
-            print(receipts)
-            return make_response(receipts, 200)
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user.customer == True:
+            receipt = Receipt.query.filter(Receipt.user_id == session.get('user_id')).all()
+            if receipt:
+                receipts = [item.to_dict() for item in receipt]
+                print(receipts)
+                return make_response(receipts, 200)
+        else:
+            all_receipts = [receipt.to_dict() for receipt in Receipt.query.all()]
+            return make_response(all_receipts, 200)
+            
         return {'error': 'Not Found'}, 404
     
     
