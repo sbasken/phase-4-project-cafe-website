@@ -3,6 +3,14 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentReceipt }) => {
+  console.log(item.id, currentReceipt.id)
+
+  const orderItemObj = {
+    item_id: item.id,
+    receipt_id: currentReceipt.id,
+    quantity: 1
+  }
+
 
     const addToCart = (e) => {
       console.log(item.id)
@@ -11,7 +19,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify()
+            body: JSON.stringify(orderItemObj)
         })
     }
 
@@ -22,10 +30,8 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
       })
       .then(res => {
           if (res.ok) {
-              res.json().then(() => {
-                  console.log(`Deleting item with id ${item.id}`)
-                  onDeleteItem(item.id)
-              })
+              console.log(`Deleting item with id ${item.id}`)
+              onDeleteItem(item.id)
           }
       })
       .catch(error => {

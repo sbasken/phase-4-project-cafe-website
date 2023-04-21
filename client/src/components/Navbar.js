@@ -1,20 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navbar = ({currentUser, handleLogout}) => {
   return (
     <div className="ui menu">
         <div className="header item">Component Cafe</div>
-            <a className="item" href="/home">Home</a>
-            <a className="item" href="/menu">Menu</a>
-            <a className="item" href="/about">About</a>
+            <Link className="item" to="/home">Home</Link>
+            <Link className="item" to="/menu">Menu</Link>
+            <Link className="item" to="/about">About</Link>
         <div className="right menu">
         {currentUser ? 
             <>
-            <a className="item" href="/orders">Orders</a>
-            <a className='item' href='/home' onClick={handleLogout}> Logout </a>
-            <a className='item' href='/cart'> 🛒 </a> </>
+            <Link className="item" to="/orders">Orders</Link>
+            <Link className='item' to='/home' onClick={handleLogout}> Logout </Link>
+            <Link className='item' to='/cart'> 🛒 </Link> </>
             : null}
-            <a className="item" href="/login">{currentUser? `Welcome, ${currentUser.username}`:"Login"}</a>
+            <Link className="item" to="/login">{currentUser? `Welcome, ${currentUser.username}`:"Login"}</Link>
         </div>
     </div>
   )
