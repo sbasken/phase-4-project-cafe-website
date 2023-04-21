@@ -105,7 +105,7 @@ function App() {
                                           filteredItems={filteredItems}
                                           deleteItem={deleteItem}
                                           />} />
-          <Route path="/orders" element={<Order />} />
+          <Route path="/orders" element={<Order currentUser={currentUser} />} />
           <Route path="/about" element={<About />} />
           <Route path="/newitem" element={<NewItem onAddItem={onAddItem}/>} />
           <Route path="/cart" element={<Cart 
