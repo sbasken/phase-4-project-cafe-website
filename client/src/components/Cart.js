@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Icon, Container, Modal, Grid, Image, Segment, Header } from 'semantic-ui-react';
+import {useNavigate} from 'react-router-dom'
 
 function Cart({currentReceipt}) {
   const [orderItems, setOrderItems] = useState([]);
   const [deleteItem, setDeleteItem] = useState(null);
   const [total, setTotal] = useState(0);
+  const navigate = useNavigate()
 
   console.log(currentReceipt)
 
@@ -87,7 +89,9 @@ function Cart({currentReceipt}) {
       })
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {console.log(data)
+      navigate('/orders')
+      setOrderItems(null)})
       .catch(error => console.log(error));
   };
 console.log(total)

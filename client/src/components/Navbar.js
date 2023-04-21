@@ -13,7 +13,9 @@ const Navbar = ({currentUser, handleLogout}) => {
             <>
             <Link className="item" to="/orders">Orders</Link>
             <Link className='item' to='/home' onClick={handleLogout}> Logout </Link>
-            <Link className='item' to='/cart'> 🛒 </Link> </>
+            {currentUser.customer ? <>
+            <Link className='item' to='/cart'> 🛒 </Link></> : null}
+             </>
             : null}
             <Link className="item" to="/login">{currentUser? `Welcome, ${currentUser.username}`:"Login"}</Link>
         </div>
