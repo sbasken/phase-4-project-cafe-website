@@ -68,7 +68,7 @@ const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentRe
             </Button.Content>
         </Button> ): (
             <div>
-              <Button floated='right' as={Link} to={{ pathname: `/menu/${item.id}`, state: { handleUpdateItem } }}>
+              <Button floated='right' as={Link} to={{ pathname: `/menu/${item.id}` }}>
               <Icon name='edit'/>Edit</Button>
               <Button floated='right'onClick={handleDelete}>
                 <Icon name='delete'/>Delete</Button>

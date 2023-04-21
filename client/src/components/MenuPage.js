@@ -1,54 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Grid, Menu, Button } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 import ItemCard from './ItemCard'
 
-const MenuPage = ({ currentUser, currentReceipt }) => {
-  const [ menuItems, setMenuItems ] = useState([])
-  const [ category, setCategory ] = useState('all')
-  const [ filteredItems, setFilteredItems ] = useState([])
-  
-  useEffect(() => {
-    fetch("/menu")
-    .then(res => res.json())
-    .then(data => {
-      setMenuItems(data)
-      setFilteredItems(data)
-    });
-  }, [])
+const MenuPage = ({ currentUser, currentReceipt, handleFilter, filteredItems, deleteItem }) => {
 
-  useEffect(() => {
-    const filtered = menuItems.filter(item => {
-      if (category === 'all') {
-        return true;
-      } else {
-        return item.category === category;
-      }
-    });
-    setFilteredItems(filtered);
-  }, [menuItems, category]);
-
-  const deleteItem = (id) => {
-    const updatedItems = menuItems.filter(item => item.id !== id)
-    setMenuItems(updatedItems)
-    setFilteredItems(updatedItems)
-  }
-
-  const updateItem = (updatedItem) => {
-    const newItems = menuItems.map(item => {
-      if (item.id === updatedItem.id) {
-        return updatedItem
-      } else {
-        return item
-      }
-    })
-    setMenuItems(newItems)
-    setFilteredItems(newItems)
-  }
-
-  const handleFilter = (value) => {
-    setCategory(value)
-  }
-  
   return (
     <Grid>
         <Grid.Column width={4}>
@@ -76,7 +32,7 @@ const MenuPage = ({ currentUser, currentReceipt }) => {
           </Menu>
           { currentUser && <>  
             {currentUser?.customer ? (null) :
-            (<Button>Add Item</Button>
+            (<Button as={Link} to='/newitem'>Add Item</Button>
             )}</>}
         </Grid.Column>
 
@@ -84,7 +40,12 @@ const MenuPage = ({ currentUser, currentReceipt }) => {
           <Grid Columns={2} stackable>
             { filteredItems.map(item => (
               <Grid.Column key={item.id} computer={8} tablet={16} mobile={16}>
-                <ItemCard item={item} currentUser={currentUser} onDeleteItem={deleteItem} currentReceipt={currentReceipt}/>
+                <ItemCard 
+                  item={item} 
+                  currentUser={currentUser} 
+                  onDeleteItem={deleteItem} 
+                  currentReceipt={currentReceipt}
+                />
               </Grid.Column>
             )) }
           </Grid>
