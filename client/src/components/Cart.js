@@ -52,14 +52,16 @@ function Cart({currentReceipt}) {
     }
   };
 
-  const handleDelete = (item) => {
-    fetch(`/orderitem/${item.id}`, {
+  const handleDelete = (deleteItem) => {
+    fetch(`/orderitem/${deleteItem.id}`, {
       method: 'DELETE'
     })
     .then(res => {
       if (res.ok) {
-        setOrderItems(orderItems.filter(orderItem => orderItem.id !== item.id));
+        setOrderItems(orderItems.filter(orderItem => orderItem.id !== deleteItem.id));
         setDeleteItem(null);
+        setTotal(orderItems.filter(orderItem => orderItem.id !== deleteItem.id).reduce((acc, item) => acc + item.menuitem.price * item.quantity, 0));
+
       } else {
         throw new Error('Unexpected response');
       }
@@ -110,7 +112,7 @@ console.log(total)
                   <Button.Or text={item.quantity} />
                   <Button onClick={() => handleAdd(item)}><Icon name='plus' /></Button>
                 </Button.Group>
-                <Button floated='right' onClick={() => handleDelete(item)}><Icon name='trash' /></Button>
+                <Button floated='right' onClick={() => setDeleteItem(item)}><Icon name='trash' /></Button>
               </Card.Content>
             </Card>
             <br/>
