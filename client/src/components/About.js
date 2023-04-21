@@ -1,22 +1,23 @@
 import React from 'react'
 import { Grid, Image } from 'semantic-ui-react'
+import banner from '../binarybeansbanner.png'
 
 const About = () => {
   return (
     <Grid celled='internally'>
       <Grid.Row>
-        <Image src='https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80' />
+        <Image src={banner} />
       </Grid.Row>
 
       <Grid.Row>
         <Grid.Column width={13} textAlign='center'>
             <br></br>
-            <h1>Component Cafe</h1>
+            <h1>Binary Beans Cafe</h1>
             <br></br>
           <Grid columns={3} divided>
             <Grid.Column>
               <h3>General Inquiries</h3>
-              <p>hello@componentcafe.com</p>
+              <p>hello@binarybeanscafe.com</p>
             </Grid.Column>
             <Grid.Column>
               <h3>Location</h3>

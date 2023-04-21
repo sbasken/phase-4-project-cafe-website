@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navbar = ({currentUser, handleLogout}) => {
   return (
     <div className="ui menu">
-        <div className="header item">Component Cafe</div>
+        <div className="header item">Binary Beans Cafe</div>
             <Link className="item" to="/home">Home</Link>
             <Link className="item" to="/menu">Menu</Link>
             <Link className="item" to="/about">About</Link>

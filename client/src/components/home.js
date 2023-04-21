@@ -43,7 +43,7 @@ export default function Home() {
         <Grid.Row>
           <Grid.Column>
             <Header as="h2">Our Coffee</Header>
-            <Segment>At [cafe name], we're passionate about coffee and committed to serving only the highest quality brews to our customers. We believe that coffee is an art form, and we take great pride in every cup that we serve.
+            <Segment>At Binary Beans Cafe, we're passionate about coffee and committed to serving only the highest quality brews to our customers. We believe that coffee is an art form, and we take great pride in every cup that we serve.
             <br/>
             <br/>
             We start by carefully selecting our coffee beans from the best growers around the world. We're dedicated to sourcing only the finest and most flavorful beans, which are then roasted in-house to bring out their unique flavors and aromas. Our small-batch roasting process ensures that each cup of coffee is fresh, aromatic, and bursting with flavor.
@@ -55,7 +55,7 @@ export default function Home() {
             When it comes to brewing our coffee, we take great care to ensure that each cup is made with the utmost precision and attention to detail. We use only the best equipment and techniques to brew our coffee, whether you prefer a classic drip coffee, a rich and creamy latte, or a refreshing iced coffee.
             <br/>
             <br/>
-            So if you're looking for a cozy, welcoming atmosphere where you can enjoy a perfectly brewed cup of coffee and a delicious pastry, come visit us at [cafe name]. We're confident that our commitment to quality and our passion for coffee will make your experience truly exceptional.
+            So if you're looking for a cozy, welcoming atmosphere where you can enjoy a perfectly brewed cup of coffee and a delicious pastry, come visit us at Binary Beans Cafe. We're confident that our commitment to quality and our passion for coffee will make your experience truly exceptional.
             </Segment>
           </Grid.Column>
           <Grid.Column>
