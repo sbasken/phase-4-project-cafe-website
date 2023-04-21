@@ -54,6 +54,7 @@ function Orders({currentUser}) {
               <Card.Content>
                 <p>Order Date: {new Date(receipt.created_at).toLocaleString()}</p>
                 <p>Status: {receipt.completed ? 'Completed' : 'Active'}</p>
+                <p>Items: {receipt.menu_item}</p>
               </Card.Content>
             </Card>
           </div>
