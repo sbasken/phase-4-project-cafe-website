@@ -2,8 +2,7 @@ import React from 'react';
 import { Card, Icon, Image, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem, currentReceipt }) => {
-    console.log(currentReceipt, "in ItemCard")
+const ItemCard = ({ item, currentUser, onDeleteItem, handleUpdateItem }) => {
 
     const addToCart = (e) => {
       console.log(item.id)
