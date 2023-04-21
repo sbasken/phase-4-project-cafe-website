@@ -63,15 +63,14 @@ function App() {
   }, [menuItems, category]);
 
   const deleteItem = (id) => {
+    console.log(id)
     const updatedItems = menuItems.filter(item => item.id !== id)
     setMenuItems(updatedItems)
-    setFilteredItems(updatedItems)
   }
 
   const onAddItem = (newItem) => {
     const updatedItems = [...menuItems, newItem]
     setMenuItems(updatedItems)
-    setFilteredItems(updatedItems)
   }
 
   const updateItem = (updatedItem) => {
@@ -83,7 +82,6 @@ function App() {
       }
     })
     setMenuItems(newItems)
-    setFilteredItems(newItems)
   }
 
   const handleFilter = (value) => {
@@ -98,6 +96,7 @@ function App() {
       <div className="row">
         <Routes>
           <Route path="/home" element={<Home />} />
+          <Route path="/menu/:id" element={<EditItem handleUpdateItem={updateItem}/>} />
           <Route path="/menu" element={<MenuPage 
                                           currentUser={currentUser} 
                                           currentReceipt={currentReceipt}
@@ -105,7 +104,6 @@ function App() {
                                           filteredItems={filteredItems}
                                           deleteItem={deleteItem}
                                           />} />
-          <Route path="/menu/:id" element={<EditItem handleUpdateItem={updateItem}/>} />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
           <Route path="/newitem" element={<NewItem onAddItem={onAddItem}/>} />

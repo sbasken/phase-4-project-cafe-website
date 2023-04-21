@@ -127,7 +127,7 @@ class MenuItemByID(Resource):
         db.session.delete(to_delete)
         db.session.commit()
         
-        return make_response(jsonify({'Item successfully deleted!'}), 204)
+        return make_response({'message': 'Item successfully deleted!'}, 204)
 
 class OrderItems(Resource):
     def get(self):
