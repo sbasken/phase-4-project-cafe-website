@@ -27,8 +27,9 @@ function App() {
     fetch("/check_session")
       .then((r) => {
         if (r.ok) {
-          r.json().then((currentUser) => setCurrentUser(currentUser));
-        }
+          r.json()
+          .then((currentUser) => setCurrentUser(currentUser)
+          )}
       });
   }, []);
 
@@ -97,7 +98,7 @@ function App() {
       </div>
       <div className="row">
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home currentReceipt={currentReceipt}/>} />
           <Route path="/menu" element={<MenuPage 
                                           currentUser={currentUser} 
                                           currentReceipt={currentReceipt}
@@ -109,7 +110,9 @@ function App() {
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
           <Route path="/newitem" element={<NewItem onAddItem={onAddItem}/>} />
-          <Route path="/cart" element={<Cart currentUser={currentUser} />} />
+          <Route path="/cart" element={<Cart 
+          currentUser={currentUser} 
+          currentReceipt={currentReceipt}/>} />
           <Route path="/login" element={<Login setCurrentUser={setCurrentUser} setCurrentReceipt={setCurrentReceipt}/>} />
           <Route path="/signup" element={<Signup setCurrentUser={setCurrentUser} setCurrentReceipt={setCurrentReceipt}/>} />
         </Routes>
