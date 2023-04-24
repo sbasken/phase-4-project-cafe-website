@@ -5,7 +5,7 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from .config import app, api, db
-from models import User, MenuItem, OrderItem, Receipt
+from .models import User, MenuItem, OrderItem, Receipt
 
 class Signup(Resource):
 
