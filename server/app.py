@@ -8,6 +8,11 @@ from sqlalchemy.exc import IntegrityError
 from .config import app, api, db
 from .models import User, MenuItem, OrderItem, Receipt
 
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
+
 class Signup(Resource):
 
     def post(self):
@@ -254,7 +259,7 @@ class Receipts(Resource):
         return make_response(new_receipt.to_dict(), 201)
     
 
-api.add_resource(Home, '/')
+api.add_resource(Home, '/home')
 api.add_resource(MenuItems, '/menu')
 api.add_resource(MenuItemByID, '/menu/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
