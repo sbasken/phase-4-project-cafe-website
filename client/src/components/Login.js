@@ -96,7 +96,7 @@ const Login = ({setCurrentUser, setCurrentReceipt}) => {
         </Grid.Column>
       </Grid>
     </Segment>
-        <h4 style={{textAlign:'center'}}>No Account? Sign up <Link href="/signup">here</Link></h4>
+        <h4 style={{textAlign:'center'}}>No Account? Sign up <Link to="/signup">here</Link></h4>
     </>
   )
 }
