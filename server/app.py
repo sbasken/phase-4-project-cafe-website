@@ -259,7 +259,7 @@ class Receipts(Resource):
         return make_response(new_receipt.to_dict(), 201)
     
 
-api.add_resource(Home, '/home')
+api.add_resource(Home, '/')
 api.add_resource(MenuItems, '/menu')
 api.add_resource(MenuItemByID, '/menu/<int:id>')
 api.add_resource(OrderItems, '/orderitem')
