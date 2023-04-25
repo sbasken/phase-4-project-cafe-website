@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Segment, Grid, Form, Button } from 'semantic-ui-react'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import {useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = ({setCurrentUser, setCurrentReceipt}) => {
 
@@ -96,7 +96,7 @@ const Login = ({setCurrentUser, setCurrentReceipt}) => {
         </Grid.Column>
       </Grid>
     </Segment>
-        <h4 style={{textAlign:'center'}}>No Account? Sign up <a href="/signup">here</a></h4>
+        <h4 style={{textAlign:'center'}}>No Account? Sign up <Link href="/signup">here</Link></h4>
     </>
   )
 }
