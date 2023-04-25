@@ -49,18 +49,18 @@ with app.app_context():
     db.session.add_all([user1, user2])
     db.session.commit()
 
-    # print("Seeding receipt data...")
-    # # create a receipt
-    # receipt = Receipt(user_id=1, total=22.97, completed=True)
-    # receipt1 = Receipt(user_id=2, total=17.96, completed=True)
-    # receipt2 = Receipt(user_id=1, total=31.92, completed=True)
-    # receipt3 = Receipt(user_id=2, total=9.97, completed=False)
-    # receipt4 = Receipt(user_id=1, total=29.95, completed=True)
+    print("Seeding receipt data...")
+    # create a receipt
+    receipt = Receipt(user_id=user1.id, total=22.97, completed=True)
+    receipt1 = Receipt(user_id=user2.id, total=17.96, completed=True)
+    receipt2 = Receipt(user_id=user1.id, total=31.92, completed=True)
+    receipt3 = Receipt(user_id=user2.id, total=9.97, completed=False)
+    receipt4 = Receipt(user_id=user1.id, total=29.95, completed=True)
 
-    # print("Commiting receipt data...")
-    # # add receipt to database
-    # db.session.add_all([receipt, receipt1, receipt2, receipt3, receipt4])
-    # db.session.commit()
+    print("Commiting receipt data...")
+    # add receipt to database
+    db.session.add_all([receipt, receipt1, receipt2, receipt3, receipt4])
+    db.session.commit()
 
     # print("Seeding orderitem data...")
     # # create some order items

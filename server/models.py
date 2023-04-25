@@ -47,8 +47,8 @@ class OrderItem(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
-    menuitem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id'), nullable=False)
-    receipt_id = db.Column(db.Integer, db.ForeignKey('receipts.id'))
+    menuitem_id = db.Column(db.Integer, db.ForeignKey('menuitems.id', ondelete='CASCADE'), nullable=False)
+    receipt_id = db.Column(db.Integer, db.ForeignKey('receipts.id', ondelete='CASCADE'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 

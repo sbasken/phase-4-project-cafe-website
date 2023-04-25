@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import jsonify, make_response, request, session
+from flask import jsonify, make_response, request, session, render_template
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
