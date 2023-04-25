@@ -1,6 +1,6 @@
 # phase-4-project-cafe-website
 
-Live here: https://phase-4-project-cafe-website.onrender.com/about
+Live here: https://phase-4-project-cafe-website.onrender.com
 
 ## Table relationships
 ![image](https://user-images.githubusercontent.com/120995506/232566041-47ab0e43-1899-4745-b40b-637f983010af.png)
