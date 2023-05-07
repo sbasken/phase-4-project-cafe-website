@@ -4,7 +4,7 @@ import banner from '../binarybeansbanner.png'
 
 const About = () => {
   return (
-    <Grid celled='internally'>
+    <Grid celled='internally' stackable>
       <Grid.Row>
         <Image src={banner} />
       </Grid.Row>
@@ -14,7 +14,7 @@ const About = () => {
             <br></br>
             <h1>Binary Beans Cafe</h1>
             <br></br>
-          <Grid columns={3} divided>
+          <Grid columns={3} divided stackable>
             <Grid.Column>
               <h3>General Inquiries</h3>
               <p>hello@binarybeanscafe.com</p>

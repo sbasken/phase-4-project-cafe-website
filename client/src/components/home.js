@@ -20,7 +20,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className='ui container hidden divider'>
       <Header as="h2" textAlign="center">Featured Items:</Header>
       <Grid columns={3} centered>
         <Grid.Row stretched>
@@ -39,7 +39,7 @@ export default function Home() {
           ))}
         </Grid.Row>
       </Grid>
-      <Grid columns={2}>
+      <Grid columns={2} stackable>
         <Grid.Row>
           <Grid.Column>
             <Header as="h2">Our Coffee</Header>
@@ -58,8 +58,8 @@ export default function Home() {
             So if you're looking for a cozy, welcoming atmosphere where you can enjoy a perfectly brewed cup of coffee and a delicious pastry, come visit us at Binary Beans Cafe. We're confident that our commitment to quality and our passion for coffee will make your experience truly exceptional.
             </Segment>
           </Grid.Column>
-          <Grid.Column>
-            <Image src="https://images.unsplash.com/photo-1574728015355-8b350afff15f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1325&q=80" alt="barista making coffee" floated="right"/>
+          <Grid.Column >
+            <Image style={{marginTop: '10px'}}src="https://images.unsplash.com/photo-1574728015355-8b350afff15f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1325&q=80" alt="barista making coffee" floated="right"/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

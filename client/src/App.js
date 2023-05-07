@@ -39,7 +39,7 @@ function App() {
         if (r.ok) {
           setCurrentUser(null)
         }
-        navigate('/home')
+        navigate('/')
       })
     }
   
@@ -96,7 +96,7 @@ function App() {
       </div>
       <div className="row">
         <Routes>
-          <Route path="/home" element={<Home currentReceipt={currentReceipt}/>} />
+          <Route path="/" element={<Home currentReceipt={currentReceipt}/>} />
           <Route path="/menu/:id" element={<EditItem handleUpdateItem={updateItem}/>} />
           <Route path="/menu" element={<MenuPage 
                                           currentUser={currentUser} 

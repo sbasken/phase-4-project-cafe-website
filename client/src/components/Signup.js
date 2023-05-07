@@ -61,10 +61,10 @@ const Signup = ({ setCurrentUser, setCurrentReceipt }) => {
                                             console.log(receipt)
                                             setCurrentReceipt(receipt)
                                         })
-                                        navigate('/home')}
+                                        navigate('/')}
                                     })}
                             })
-                            navigate('/home')
+                            navigate('/')
                         } else {
                             res.json().then( err => {
                                 console.log(err)

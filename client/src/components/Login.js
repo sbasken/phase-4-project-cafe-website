@@ -44,7 +44,7 @@ const Login = ({setCurrentUser, setCurrentReceipt}) => {
                       if (res.ok) {
                         res.json()
                       .then(receipt => setCurrentReceipt(receipt))
-                      navigate('/home')}
+                      navigate('/')}
                     })
                     })
                     }
