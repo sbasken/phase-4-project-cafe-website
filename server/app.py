@@ -7,11 +7,31 @@ from sqlalchemy.exc import IntegrityError
 
 from config import app, api, db
 from models import User, MenuItem, OrderItem, Receipt
+from apscheduler.schedulers.background import BackgroundScheduler
+import requests
 
 @app.route('/')
 @app.route('/<int:id>')
 def index(id=0):
     return render_template("index.html")
+
+@app.route('/ping')
+def ping():
+    return jsonify({"status": "alive"}), 200
+
+def keep_alive():
+    try:
+        response = requests.get('https://phase-4-project-cafe-website.onrender.com/ping')
+        if response.status_code == 200:
+            print("Keep-Alice request sent successfully.")
+        else:
+            print("Keep-Alice request failed.")
+    except Exception as e:
+        print(f"Error during Keep-Alive request: {e}")
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=keep_alive, trigger="interval", minutes=13)
+scheduler.start()
 
 class Signup(Resource):
 
